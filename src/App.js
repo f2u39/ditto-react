@@ -1,6 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
 
+// import the Container Component from the semantic-ui-react
+// import { Container } from "semantic-ui-react";
+
 function App() {
   return (
     <div className="App">
