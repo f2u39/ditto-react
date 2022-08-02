@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import TextInputWithFocusButton from "./components/TextInputWithFocusButton";
 
 
 const DATA = [
@@ -13,6 +14,7 @@ const DATA = [
 ReactDOM.render(
   <React.StrictMode>
     <App tasks={DATA} />
+    <TextInputWithFocusButton />
   </React.StrictMode>,
   document.getElementById('root')
 );
