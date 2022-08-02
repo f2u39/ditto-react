@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 
-
 function usePrevious(value) {
   const ref = useRef();
   useEffect(() => {
@@ -11,7 +10,7 @@ function usePrevious(value) {
 
 export default function Todo(props) {
   const [isEditing, setEditing] = useState(false);
-  const [newName, setNewName] = useState('');
+  const [newContent, setNewContent] = useState('');
 
   const editFieldRef = useRef(null);
   const editButtonRef = useRef(null);
@@ -19,13 +18,14 @@ export default function Todo(props) {
   const wasEditing = usePrevious(isEditing);
 
   function handleChange(e) {
-    setNewName(e.target.value);
+    setNewContent(e.target.value);
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
-    props.editTask(props.id, newName);
-    setNewName("");
+    
+    props.editTask(props.id, newContent);
+    setNewContent("");
     setEditing(false);
   }
 
@@ -39,7 +39,7 @@ export default function Todo(props) {
           id={props.id}
           className="todo-text"
           type="text"
-          value={newName || props.name}
+          value={newContent || props.name}
           onChange={handleChange}
           ref={editFieldRef}
         />
