@@ -4,13 +4,37 @@ function Form(props) {
   const [name, setName] = useState('');
 
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     if (!name.trim()) {
       return;
     }
-    props.addTask(name);
-    setName("");
+
+    let body = {
+      Content: name,
+      IsDone: false,
+    }
+
+    const response = await fetch('api/todo/create',
+      {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    const data = await response.json();
+    if (!response.ok) {
+      let errorText = 'Failed to create todo.';
+      if (!data.hasOwnProperty('error')) {
+        throw new Error(errorText);
+      }
+    }
+
+    // props.addTask(name);
+    // setName("");
   }
 
 

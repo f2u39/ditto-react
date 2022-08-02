@@ -11,7 +11,7 @@ var (
 	Todos *mgo.Collection
 )
 
-func dial() {
+func Dial() {
 	var err error
 
 	// Connect to MongoDB

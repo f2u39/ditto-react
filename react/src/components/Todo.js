@@ -22,11 +22,8 @@ export default function Todo(props) {
     setNewName(e.target.value);
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    if (!newName.trim()) {
-      return;
-    }
     props.editTask(props.id, newName);
     setNewName("");
     setEditing(false);

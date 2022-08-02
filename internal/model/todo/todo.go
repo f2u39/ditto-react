@@ -7,13 +7,13 @@ import (
 )
 
 type Todo struct {
-	ID      string `json:"id"`
-	Content string `json:"content"`
-	IsDone  bool   `json:"is_done"`
+	ID      bson.ObjectId `json:"id" bson:"_id"`
+	Content string        `json:"content"`
+	IsDone  bool          `json:"is_done"`
 }
 
 func Create(todo Todo) error {
-	return mgo.Todos.Insert(&todo)
+	return mgo.Todos.Insert(todo)
 }
 
 func All(todo *Todo) error {

@@ -3,9 +3,10 @@ package todo
 
 import (
 	"ditto-react/internal/model/todo"
-	"strconv"
+	"log"
 
 	"github.com/gin-gonic/gin"
+	"gopkg.in/mgo.v2/bson"
 )
 
 func Create(c *gin.Context) {
@@ -16,15 +17,30 @@ func Create(c *gin.Context) {
 		})
 
 	case "POST":
-		content := c.PostForm("content")
-		isDone, _ := strconv.Atoi(c.PostForm("is_done"))
-
-		var t = todo.Todo{
-			Content: content,
-			IsDone:  isDone == 1,
+		// content := c.PostForm("Content")
+		// t := c.MustGet(gin.BindKey).(*todo.Todo)
+		var t todo.Todo
+		err := c.BindJSON(&t)
+		if err != nil {
+			log.Println(err)
+			return
 		}
 
-		todo.Create(t)
+		t.ID = bson.NewObjectId()
+		err = todo.Create(t)
+		if err != nil {
+			log.Println(err)
+			return
+		}
+
+		// isDone, _ := strconv.Atoi(c.PostForm("is_done"))
+
+		// var t = todo.Todo{
+		// 	Content: content,
+		// 	IsDone:  isDone == 1,
+		// }
+
+		// todo.Create(t)
 	}
 
 }
