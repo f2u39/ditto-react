@@ -9,6 +9,17 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
+func All(c *gin.Context) {
+	todos, err := todo.All()
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	c.JSON(200, gin.H{
+		"todos": todos,
+	})
+}
+
 func Create(c *gin.Context) {
 	switch c.Request.Method {
 	case "GET":
@@ -32,15 +43,5 @@ func Create(c *gin.Context) {
 			log.Println(err)
 			return
 		}
-
-		// isDone, _ := strconv.Atoi(c.PostForm("is_done"))
-
-		// var t = todo.Todo{
-		// 	Content: content,
-		// 	IsDone:  isDone == 1,
-		// }
-
-		// todo.Create(t)
 	}
-
 }

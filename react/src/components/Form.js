@@ -12,7 +12,7 @@ function Form(props) {
 
     let body = {
       Content: content,
-      IsDone: false,
+      Completed: false,
     }
 
     const response = await fetch('api/todo/create',

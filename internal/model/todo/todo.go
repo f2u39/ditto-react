@@ -7,15 +7,17 @@ import (
 )
 
 type Todo struct {
-	ID      bson.ObjectId `json:"id" bson:"_id"`
-	Content string        `json:"content"`
-	IsDone  bool          `json:"is_done"`
+	ID        bson.ObjectId `json:"id" bson:"_id"`
+	Content   string        `json:"content" bson:"content"`
+	Completed bool          `json:"completed" bson:"completed"`
 }
 
 func Create(todo Todo) error {
 	return mgo.Todos.Insert(todo)
 }
 
-func All(todo *Todo) error {
-	return mgo.Todos.Find(bson.M{}).All(todo)
+func All() ([]Todo, error) {
+	var todos []Todo
+	err := mgo.Todos.Find(bson.M{}).All(&todos)
+	return todos, err
 }
