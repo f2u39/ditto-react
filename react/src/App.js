@@ -3,6 +3,7 @@ import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
 import Todo from "./components/Todo";
 import { nanoid } from "nanoid";
+import axios from 'axios';
 
 
 function usePrevious(value) {
@@ -19,11 +20,74 @@ const FILTER_MAP = {
   Completed: task => task.completed
 };
 
+async function getTodos0() {
+  try {
+    let response = await fetch('http://127.0.0.1:8080/api/todo');
+    let responseJson = await response.json();
+    // console.log(responseJson);
+    // console.log(responseJson["todos"]);
+    return responseJson["todos"];
+   } catch(error) {
+    console.log(error);
+  }
+}
+
+const getTodos2 = () => {
+  fetch('http://127.0.0.1:8080/api/todo', {
+    headers : { 
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
+  }).then(function(response){
+      console.log(response)
+      return response.json();
+    }).then(function(myJson) {
+      console.log(myJson);
+    });
+}
+
+  const getTodos3 = () => {
+    fetch('http://127.0.0.1:8080/api/todo',)
+      .then(function(response){
+        // console.log(response)
+        return response.json();
+      }).then(function(json) {
+        // onsole.log(json)
+      });
+  };
+
+// useEffect(()=>{
+//   getTodos()},[]
+// )
+
 const FILTER_NAMES = Object.keys(FILTER_MAP);
 
 function App(props) {
-  const [tasks, setTasks] = useState(props.tasks);
+  // const [tasks, setTasks] = useState(props.tasks);
+  const [tasks, setTasks] = useState([]);
+  // const [tasks, setTasks] = useState(getTodos3);
   const [filter, setFilter] = useState('All');
+
+  // useEffect(async () => {
+  //   const result = await axios(
+  //     'http://127.0.0.1:8080/api/todo',
+  //   );
+  //   // console.log(result.data.todos);
+  //   setTasks(result.data.todos);
+  // });
+
+  useEffect(() => {
+    fetch('http://127.0.0.1:8080/api/todo',)
+      .then(function(response){
+        // console.log(response)
+        return response.json();
+      }).then(function(json) {
+        console.log(json)
+        setTasks(json.todos);
+      });
+  }, []);
+
+  console.log(tasks);
 
   function toggleTaskCompleted(id) {
     const updatedTasks = tasks.map(task => {
@@ -38,19 +102,17 @@ function App(props) {
     setTasks(updatedTasks);
   }
 
-
   function deleteTask(id) {
     const remainingTasks = tasks.filter(task => id !== task.id);
     setTasks(remainingTasks);
   }
 
-
-  function editTask(id, newName) {
+  function editTask(id, newContent) {
     const editedTaskList = tasks.map(task => {
     // if this task has the same ID as the edited task
       if (id === task.id) {
         //
-        return {...task, name: newName}
+        return {...task, content: newContent}
       }
       return task;
     });
@@ -62,7 +124,7 @@ function App(props) {
   .map(task => (
     <Todo
       id={task.id}
-      name={task.name}
+      content={task.content}
       completed={task.completed}
       key={task.id}
       toggleTaskCompleted={toggleTaskCompleted}
@@ -71,20 +133,19 @@ function App(props) {
     />
   ));
 
-  const filterList = FILTER_NAMES.map(name => (
+  const filterList = FILTER_NAMES.map(content => (
     <FilterButton
-      key={name}
-      name={name}
-      isPressed={name === filter}
+      key={content}
+      name={content}
+      isPressed={content === filter}
       setFilter={setFilter}
     />
   ));
 
-  function addTask(name) {
-    const newTask = { id: "todo-" + nanoid(), name: name, completed: false };
+  function addTask(content) {
+    const newTask = { id: "todo-" + nanoid(), content: content, completed: false };
     setTasks([...tasks, newTask]);
   }
-
 
   const tasksNoun = taskList.length !== 1 ? 'tasks' : 'task';
   const headingText = `${taskList.length} ${tasksNoun} remaining`;

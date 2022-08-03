@@ -33,13 +33,13 @@ export default function Todo(props) {
     <form className="stack-small" onSubmit={handleSubmit}>
       <div className="form-group">
         <label className="todo-label" htmlFor={props.id}>
-          New name for {props.name}
+          New content for {props.content}
         </label>
         <input
           id={props.id}
           className="todo-text"
           type="text"
-          value={newContent || props.name}
+          value={newContent || props.content}
           onChange={handleChange}
           ref={editFieldRef}
         />
@@ -47,11 +47,11 @@ export default function Todo(props) {
       <div className="btn-group">
         <button type="button" className="btn todo-cancel" onClick={() => setEditing(false)}>
           Cancel
-          <span className="visually-hidden">renaming {props.name}</span>
+          <span className="visually-hidden">renaming {props.content}</span>
         </button>
         <button type="submit" className="btn btn__primary todo-edit">
           Save
-          <span className="visually-hidden">new name for {props.name}</span>
+          <span className="visually-hidden">new name for {props.content}</span>
         </button>
       </div>
     </form>
@@ -67,7 +67,7 @@ export default function Todo(props) {
             onChange={() => props.toggleTaskCompleted(props.id)}
           />
           <label className="todo-label" htmlFor={props.id}>
-            {props.name}
+            {props.content}
           </label>
         </div>
         <div className="btn-group">
@@ -77,14 +77,14 @@ export default function Todo(props) {
           onClick={() => setEditing(true)}
           ref={editButtonRef}
           >
-            Edit <span className="visually-hidden">{props.name}</span>
+            Edit <span className="visually-hidden">{props.content}</span>
           </button>
           <button
             type="button"
             className="btn btn__danger"
             onClick={() => props.deleteTask(props.id)}
           >
-            Delete <span className="visually-hidden">{props.name}</span>
+            Delete <span className="visually-hidden">{props.content}</span>
           </button>
         </div>
     </div>
