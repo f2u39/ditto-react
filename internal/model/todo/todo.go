@@ -2,6 +2,7 @@ package todo
 
 import (
 	mgo "ditto-react/internal/database"
+	"log"
 
 	"gopkg.in/mgo.v2/bson"
 )
@@ -24,6 +25,16 @@ type Todo struct {
 	ID        bson.ObjectId `json:"id" bson:"_id"`
 	Content   string        `json:"content" bson:"content"`
 	Completed bool          `json:"completed" bson:"completed"`
+}
+
+func ByID(id string) Todo {
+	var t Todo
+	oid := bson.ObjectIdHex(id)
+	err := mgo.Todos.FindId(oid).One(&t)
+	if err != nil {
+		log.Println(err)
+	}
+	return t
 }
 
 func Create(todo Todo) error {

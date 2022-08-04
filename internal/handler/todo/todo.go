@@ -4,6 +4,7 @@ package todo
 import (
 	"ditto-react/internal/model/todo"
 	"log"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"gopkg.in/mgo.v2/bson"
@@ -52,4 +53,12 @@ func Update(c *gin.Context) {
 		log.Println(err)
 		return
 	}
+	c.JSON(http.StatusOK, gin.H{})
+}
+
+func Toggle(c *gin.Context) {
+	id := c.PostForm("id")
+	t := todo.ByID(id)
+	t.Completed = !t.Completed
+	todo.Update(t)
 }

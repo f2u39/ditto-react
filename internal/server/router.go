@@ -30,6 +30,7 @@ func setRouter() *gin.Engine {
 		api.GET("/todo", todo.All)
 		api.POST("/todo/create", todo.Create)
 		api.POST("/todo/update", todo.Update)
+		api.POST("/todo/toggle", todo.Toggle)
 	}
 
 	return router
