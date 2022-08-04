@@ -23,8 +23,8 @@ export default function Todo(props) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    
-    props.editTask(props.id, newContent);
+
+    props.updateTodo(props.id, newContent, props.completed);
     setNewContent("");
     setEditing(false);
   }

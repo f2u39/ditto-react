@@ -20,13 +20,11 @@ const FILTER_MAP = {
   Completed: task => task.completed
 };
 
-async function getTodos0() {
+async function fetchTodos() {
   try {
-    let response = await fetch('http://127.0.0.1:8080/api/todo');
+    let response = await fetch('http://localhost:8080/api/todo');
     let responseJson = await response.json();
-    // console.log(responseJson);
-    // console.log(responseJson["todos"]);
-    return responseJson["todos"];
+    return responseJson.todos;
    } catch(error) {
     console.log(error);
   }
@@ -56,10 +54,6 @@ const getTodos2 = () => {
       });
   };
 
-// useEffect(()=>{
-//   getTodos()},[]
-// )
-
 const FILTER_NAMES = Object.keys(FILTER_MAP);
 
 function App(props) {
@@ -76,16 +70,29 @@ function App(props) {
   //   setTasks(result.data.todos);
   // });
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   fetch('http://127.0.0.1:8080/api/todo',)
+  //     .then(function(response){
+  //       // console.log(response)
+  //       return response.json();
+  //     }).then(function(json) {
+  //       console.log(json)
+  //       setTasks(json.todos);
+  //     });
+  // }, []);
+
+  useEffect(() => { fetchTodos() }, []);
+
+  function fetchTodos() {
     fetch('http://127.0.0.1:8080/api/todo',)
-      .then(function(response){
-        // console.log(response)
-        return response.json();
-      }).then(function(json) {
-        console.log(json)
-        setTasks(json.todos);
-      });
-  }, []);
+        .then(function(response){
+          // console.log(response)
+          return response.json();
+        }).then(function(json) {
+          console.log(json)
+          setTasks(json.todos);
+        });
+  }
 
   console.log(tasks);
 
@@ -107,16 +114,40 @@ function App(props) {
     setTasks(remainingTasks);
   }
 
-  function editTask(id, newContent) {
-    const editedTaskList = tasks.map(task => {
-    // if this task has the same ID as the edited task
-      if (id === task.id) {
-        //
-        return {...task, content: newContent}
-      }
-      return task;
+   async function updateTodo(id, newContent, completed) {
+    // const editedTaskList = tasks.map(task => {
+    // // if this task has the same ID as the edited task
+    //   if (id === task.id) {
+    //     //
+    //     return {...task, content: newContent}
+    //   }
+    //   return task;
+    // });
+    let body = {
+      Id: id,
+      Content: newContent,
+      Completed: completed,
+    }
+
+    const response = await fetch('http://localhost:8080/api/todo/update', {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
-    setTasks(editedTaskList);
+
+    const data = await response.json();
+    if (!response.ok) {
+      let errorText = 'Failed to update todo.';
+      if (!data.hasOwnProperty('error')) {
+        throw new Error(errorText);
+      }
+    }
+    
+    // fetchTodos();
+    // useEffect(() => { fetchTodos() }, []);
+    setTasks(fetchTodos());
   }
 
   const taskList = tasks
@@ -129,7 +160,7 @@ function App(props) {
       key={task.id}
       toggleTaskCompleted={toggleTaskCompleted}
       deleteTask={deleteTask}
-      editTask={editTask}
+      updateTodo={updateTodo}
     />
   ));
 

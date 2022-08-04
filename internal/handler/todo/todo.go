@@ -22,14 +22,7 @@ func All(c *gin.Context) {
 
 func Create(c *gin.Context) {
 	switch c.Request.Method {
-	case "GET":
-		c.JSON(200, gin.H{
-			"msg": "world",
-		})
-
 	case "POST":
-		// content := c.PostForm("Content")
-		// t := c.MustGet(gin.BindKey).(*todo.Todo)
 		var t todo.Todo
 		err := c.BindJSON(&t)
 		if err != nil {
@@ -43,5 +36,20 @@ func Create(c *gin.Context) {
 			log.Println(err)
 			return
 		}
+	}
+}
+
+func Update(c *gin.Context) {
+	var t todo.JSON
+	err := c.BindJSON(&t)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	err = todo.Update(t.Transform())
+	if err != nil {
+		log.Println(err)
+		return
 	}
 }

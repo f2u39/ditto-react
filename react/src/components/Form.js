@@ -15,15 +15,15 @@ function Form(props) {
       Completed: false,
     }
 
-    const response = await fetch('api/todo/create',
-      {
-        method: 'POST',
-        body: JSON.stringify(body),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    // console.log(body);
+
+    const response = await fetch('http://localhost:8080/api/todo/create', {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
     const data = await response.json();
     if (!response.ok) {
