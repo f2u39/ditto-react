@@ -20,9 +20,13 @@ func Login(c *gin.Context) {
 		}
 
 		if user.Login(u.Username, u.Password) {
-			c.JSON(http.StatusOK, gin.H{})
+			c.JSON(http.StatusOK, gin.H{
+				"token": "token",
+			})
 		} else {
-			c.JSON(http.StatusNotFound, gin.H{})
+			c.JSON(http.StatusNotFound, gin.H{
+				"token": "",
+			})
 		}
 	}
 }

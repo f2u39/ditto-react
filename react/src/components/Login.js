@@ -12,6 +12,7 @@ export default function Login({ setToken }) {
         const token = await login({
             username, password
         });
+        console.log(token);
         setToken(token);
     }
 
