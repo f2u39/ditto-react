@@ -1,7 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
+import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
 import Todo from "./components/Todo";
+import Login from "./components/Login";
+import Dashboard from "./components/Dashboard";
+import Preferences from "./components/Preferences";
 import { nanoid } from "nanoid";
 import axios from 'axios';
 
@@ -85,13 +89,11 @@ function App(props) {
 
   function fetchTodos() {
     fetch('http://127.0.0.1:8080/api/todo',)
-        .then(function(response){
-          // console.log(response)
-          return response.json();
-        }).then(function(json) {
-          // console.log(json)
-          setTasks(json.todos);
-        });
+      .then(function(response){
+        return response.json();
+      }).then(function(json) {
+        setTasks(json.todos);
+      });
   }
 
   // console.log(tasks);
@@ -102,28 +104,34 @@ function App(props) {
 
     fetch('http://localhost:8080/api/todo/toggle', {
       method: 'POST',
-      body: data,    
+      body: data,
     }).then(response => {
       if (response.ok) {
-        console.log("Toggle completed done!");
+        console.log("Toggled!");
       } else {
-        console.log("Failed to toggle completed!");
+        console.log("Failed to toggle!");
       }
     });
     
-    // fetchTodos();
-    fetch('http://127.0.0.1:8080/api/todo',)
-      .then(function(response) {
-          return response.json();
-        }).then(function(json) {
-          console.log(json);
-          setTasks(json.todos);
-        });
+    fetchTodos();
   }
 
-  function deleteTask(id) {
-    const remainingTasks = tasks.filter(task => id !== task.id);
-    setTasks(remainingTasks);
+  async function deleteTodo(id) {
+    const data = new FormData();
+    data.append("id", id);
+
+    fetch('http://localhost:8080/api/todo/delete', {
+      method: 'DELETE',
+      body: data,    
+    }).then(response => {
+      if (response.ok) {
+        console.log("Deleted!");
+      } else {
+        console.log("Failed to delete!");
+      }
+    });
+    
+    fetchTodos();
   }
 
   async function updateTodo(id, newContent, completed) {
@@ -170,7 +178,7 @@ function App(props) {
       completed={task.completed}
       key={task.id}
       toggleCompleted={toggleCompleted}
-      deleteTask={deleteTask}
+      deleteTodo={deleteTodo}
       updateTodo={updateTodo}
     />
   ));
@@ -201,6 +209,12 @@ function App(props) {
     }
   }, [tasks.length, prevTaskLength]);
 
+  const [token, setToken] = useState();
+
+  if (!token) {
+    return <Login setToken={setToken} />
+  }
+
   return (
     <div className="todoapp stack-large">
       <Form addTask={addTask} />
@@ -217,6 +231,16 @@ function App(props) {
       >
         {taskList}
       </ul>
+
+      <hr />
+
+      <h1>Application</h1>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/preferences" element={<Preferences />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

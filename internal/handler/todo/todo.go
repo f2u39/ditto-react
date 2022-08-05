@@ -1,4 +1,4 @@
-// Package for Todo handlers
+// Package for todo handler
 package todo
 
 import (
@@ -61,4 +61,10 @@ func Toggle(c *gin.Context) {
 	t := todo.ByID(id)
 	t.Completed = !t.Completed
 	todo.Update(t)
+}
+
+func Delete(c *gin.Context) {
+	id := c.PostForm("id")
+	t := todo.ByID(id)
+	todo.Delete(t)
 }

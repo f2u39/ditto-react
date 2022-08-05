@@ -45,6 +45,10 @@ func Update(todo Todo) error {
 	return mgo.Todos.UpdateId(todo.ID, todo)
 }
 
+func Delete(todo Todo) error {
+	return mgo.Todos.Remove(todo)
+}
+
 func All() ([]Todo, error) {
 	var todos []Todo
 	err := mgo.Todos.Find(bson.M{}).All(&todos)
