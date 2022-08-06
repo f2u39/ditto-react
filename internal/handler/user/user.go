@@ -24,9 +24,7 @@ func Login(c *gin.Context) {
 				"token": "token",
 			})
 		} else {
-			c.JSON(http.StatusNotFound, gin.H{
-				"token": "",
-			})
+			c.JSON(http.StatusNotFound, gin.H{})
 		}
 	}
 }

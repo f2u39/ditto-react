@@ -61,29 +61,8 @@ const getTodos2 = () => {
 const FILTER_NAMES = Object.keys(FILTER_MAP);
 
 function App(props) {
-  // const [tasks, setTasks] = useState(props.tasks);
   const [tasks, setTasks] = useState([]);
-  // const [tasks, setTasks] = useState(getTodos3);
   const [filter, setFilter] = useState('All');
-
-  // useEffect(async () => {
-  //   const result = await axios(
-  //     'http://127.0.0.1:8080/api/todo',
-  //   );
-  //   // console.log(result.data.todos);
-  //   setTasks(result.data.todos);
-  // });
-
-  // useEffect(() => {
-  //   fetch('http://127.0.0.1:8080/api/todo',)
-  //     .then(function(response){
-  //       // console.log(response)
-  //       return response.json();
-  //     }).then(function(json) {
-  //       console.log(json)
-  //       setTasks(json.todos);
-  //     });
-  // }, []);
 
   useEffect(() => { fetchTodos() }, []);
 
@@ -95,8 +74,6 @@ function App(props) {
         setTasks(json.todos);
       });
   }
-
-  // console.log(tasks);
 
   async function toggleCompleted(id) {
     const data = new FormData();
@@ -112,7 +89,6 @@ function App(props) {
         console.log("Failed to toggle!");
       }
     });
-    
     fetchTodos();
   }
 
@@ -160,10 +136,8 @@ function App(props) {
     // fetchTodos();
     fetch('http://127.0.0.1:8080/api/todo',)
         .then(function(response){
-          // console.log(response)
           return response.json();
         }).then(function(json) {
-          console.log(json);
           setTasks(json.todos);
         });
     // setTasks(fetchTodos());
@@ -211,6 +185,7 @@ function App(props) {
 
   const [token, setToken] = useState();
 
+  console.log(token);
   if (!token) {
     return <Login setToken={setToken} />
   }
@@ -227,8 +202,7 @@ function App(props) {
       <ul
         role="list"
         className="todo-list stack-large stack-exception"
-        aria-labelledby="list-heading"
-      >
+        aria-labelledby="list-heading">
         {taskList}
       </ul>
 
