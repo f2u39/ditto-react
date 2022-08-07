@@ -4,13 +4,10 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
 textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
+textarea:-webkit-autofill:focus {
   border: 1px solid #C3B1E1;
   -webkit-text-fill-color: #C3B1E1;
-          box-shadow: 0 0 0px 1000px #121212 inset;
+  box-shadow: 0 0 0px 1000px #121212 inset;
   transition: background-color 5000s ease-in-out 0s;
 }
 html,
@@ -48,20 +45,23 @@ body {
   z-index: 2;
 }
 .form-signin input[type="text"] {
-  background-color: #121212;
   color: #C3B1E1;
+  background-color: #121212;
+  border-color: #C3B1E1;
   margin-bottom: -1px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 .form-signin input[type="password"] {
-  background-color: #121212;
   color: #C3B1E1;
-  margin-bottom: 10px;
+  background-color: #121212;
+  border-color: #C3B1E1;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
 .form-signin button {
+  width: 100%;
   color: #C3B1E1;
-  border-color: #C3B1E1;;
+  border-color: #C3B1E1;
+  margin-top: 10px;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import TextInputWithFocusButton from "./components/TextInputWithFocusButton";
+import Navigation from "./components/Nav/Navigation";
 
 
 const DATA = [
@@ -13,6 +13,7 @@ const DATA = [
 
 ReactDOM.render(
   <React.StrictMode>
+    <Navigation />
     <App tasks={DATA} />
   </React.StrictMode>,
   document.getElementById('root')

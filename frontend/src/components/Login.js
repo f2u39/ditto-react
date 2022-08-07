@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import '../styles/Login.css';
 
@@ -24,13 +25,13 @@ export default function Login({ setToken }) {
         <form className="form-signin" onSubmit={ handleSubmit }>
             <input type="text" className="form-control" placeholder="Username" onChange = { e => setUsername(e.target.value)} />
             <input type="password" className="form-control" placeholder="Password" onChange = { e => setPassword(e.target.value)} />
-            <button className="form-control btn btn-lg" type="submit">Sign in</button>
+            <button className="form-control btn btn-outline-light btn-lg" type="submit">Sign in</button>
         </form>
     )
 }
 
 async function login(credentials) {
-    return fetch('http://localhost:8080/api/user/login', {
+    return fetch('/api/user/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
