@@ -1,6 +1,6 @@
 const header = {
   homepage: 'https://github.com',
-  title: 'JS.',
+  title: 'Ditto',
 }
 
 const contact = {

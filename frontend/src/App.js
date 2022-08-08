@@ -16,11 +16,11 @@ import './App.css'
 const App = () => {
   const [{ themeName }] = useContext(ThemeContext)
 
-  const [token, setToken] = useState();
+  // const [token, setToken] = useState();
 
-  if (!token) {
-    return <Login setToken={setToken} />
-  }
+  // if (!token) {
+  //   return <Login setToken={setToken} />
+  // }
 
   return (
     <div id='top' className={`${themeName} app`}>
