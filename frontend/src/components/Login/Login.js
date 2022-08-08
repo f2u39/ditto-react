@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import '../styles/Login.css';
+import './Login.css';
 
 export default function Login({ setToken }) {
     const [username, setUsername] = useState();
@@ -22,11 +22,13 @@ export default function Login({ setToken }) {
     }
 
     return (
-        <form className="form-signin" onSubmit={ handleSubmit }>
-            <input type="text" className="form-control" placeholder="Username" onChange = { e => setUsername(e.target.value)} />
-            <input type="password" className="form-control" placeholder="Password" onChange = { e => setPassword(e.target.value)} />
-            <button className="form-control btn btn-outline-light btn-lg" type="submit">Sign in</button>
-        </form>
+        <div className="signin">
+            <form className="form-signin" onSubmit={ handleSubmit }>
+                <input type="text" className="form-control" placeholder="Username" onChange = { e => setUsername(e.target.value)} />
+                <input type="password" className="form-control" placeholder="Password" onChange = { e => setPassword(e.target.value)} />
+                <button className="form-control btn btn-outline-light btn-lg" type="submit">Sign in</button>
+            </form>
+        </div>
     )
 }
 

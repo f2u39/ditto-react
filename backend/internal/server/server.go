@@ -1,7 +1,7 @@
 package server
 
 import (
-	mongo "ditto-react/internal/database"
+	mongo "ditto-react/backend/internal/database"
 )
 
 func Run(port string) {

@@ -2,7 +2,7 @@
 package user
 
 import (
-	"ditto-react/internal/model/user"
+	"ditto-react/backend/internal/model/user"
 	"log"
 	"net/http"
 

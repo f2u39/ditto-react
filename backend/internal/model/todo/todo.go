@@ -1,7 +1,7 @@
 package todo
 
 import (
-	mgo "ditto-react/internal/database"
+	mgo "ditto-react/backend/internal/database"
 	"log"
 
 	"gopkg.in/mgo.v2/bson"

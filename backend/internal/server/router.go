@@ -1,8 +1,8 @@
 package server
 
 import (
-	"ditto-react/internal/handler/todo"
-	"ditto-react/internal/handler/user"
+	"ditto-react/backend/internal/handler/todo"
+	"ditto-react/backend/internal/handler/user"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"

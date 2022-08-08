@@ -10,11 +10,9 @@ textarea:-webkit-autofill:focus {
   box-shadow: 0 0 0px 1000px #121212 inset;
   transition: background-color 5000s ease-in-out 0s;
 }
-html,
-body {
+
+.signin {
   height: 100%;
-}
-body {
   background-color: #121212;
   display: -ms-flexbox;
   display: -webkit-box;

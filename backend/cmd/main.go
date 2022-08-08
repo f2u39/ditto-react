@@ -1,6 +1,6 @@
 package main
 
-import "ditto-react/internal/server"
+import "ditto-react/backend/internal/server"
 
 func main() {
 	server.Run(":8080")

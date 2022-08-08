@@ -2,7 +2,7 @@
 package todo
 
 import (
-	"ditto-react/internal/model/todo"
+	"ditto-react/backend/internal/model/todo"
 	"log"
 	"net/http"
 
