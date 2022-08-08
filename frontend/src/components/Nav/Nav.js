@@ -4,6 +4,7 @@ import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import { ThemeContext } from '../../contexts/theme';
+import { contact } from '../../profile';
 import './Nav.css'
 
 const Nav = () => {
@@ -18,7 +19,7 @@ const Nav = () => {
         style={{ display: showNavList ? 'flex' : null }}
         className='nav__list'
       >
-        {"contact.email" ? (
+        {contact.email ? (
           <li className='nav__list-item'>
             <a
               href='#act'

@@ -6,7 +6,7 @@ import Act from './components/Act/Act';
 import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
 import Todo from "./components/Todo";
-// import Login from "./components/Login/Login";
+import Login from "./components/Login/Login";
 import Dashboard from "./components/Dashboard";
 import Preferences from "./components/Preferences";
 import { nanoid } from "nanoid";
@@ -16,11 +16,11 @@ import './App.css'
 const App = () => {
   const [{ themeName }] = useContext(ThemeContext)
 
-  // const [token, setToken] = useState();
+  const [token, setToken] = useState();
 
-  // if (!token) {
-  //   return <Login setToken={setToken} />
-  // }
+  if (!token) {
+    return <Login setToken={setToken} />
+  }
 
   return (
     <div id='top' className={`${themeName} app`}>
