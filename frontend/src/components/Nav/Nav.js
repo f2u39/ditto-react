@@ -1,18 +1,20 @@
-import { useState } from 'react';
 import History from '@mui/icons-material/History';
+import Bookmarks from '@mui/icons-material/Bookmarks';
 import './Nav.css'
 
 const Nav = () => {
-  const [showNavList, setShowNavList] = useState(false);
-
-  const toggleNavList = () => setShowNavList(!showNavList);
-
   return (
-    <nav>
+    <nav className="nav">
       <ul>
         <li>
-          <a href='#act' onClick={toggleNavList} className='link link--nav'>
-            <History />
+          <a className='nav-link' href='#act'>
+            <History className="icon" />
+          </a>
+        </li>
+
+        <li>
+          <a className='nav-link' href='#word'>
+            <Bookmarks className="icon" />
           </a>
         </li>
       </ul>

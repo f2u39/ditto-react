@@ -1,2 +1,9 @@
+.nav {
+    float: right;
+    padding-top: 15px;
+    font-weight: 700;
+}
 
-  
+.icon {
+    transform: scale(1.5);
+}
