@@ -2,13 +2,12 @@ import React, { useContext, useState, useRef, useEffect } from "react";
 import { ThemeContext } from './contexts/theme';
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 import Header from './components/Header/Header';
-import Act from './components/Act/Act';
 import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
 import Todo from "./components/Todo";
 import Login from "./components/Login/Login";
-import Dashboard from "./components/Dashboard";
-import Preferences from "./components/Preferences";
+import Dashboard from "./components/Act";
+import Preferences from "./components/Word";
 import { nanoid } from "nanoid";
 
 import './App.css'
@@ -27,7 +26,6 @@ const App = () => {
       <Header />
 
       <main>
-        <Act />
       </main>
     </div>
   )

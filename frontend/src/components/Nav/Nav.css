@@ -1,9 +1,17 @@
-.nav {
-    float: right;
-    padding-top: 15px;
-    font-weight: 700;
+a {
+    text-decoration: none;
 }
 
-.icon {
+.nav-ul {
+    display: inline;
+}
+  
+.nav-ul .nav-li {
+    display: inline;
+    float: right;
+    padding-right: 20px;
+}
+
+.nav-icon {
     transform: scale(1.5);
 }
