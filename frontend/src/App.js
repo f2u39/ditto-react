@@ -1,7 +1,5 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
 import { ThemeContext } from './contexts/theme';
-import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
-import Header from './components/Header/Header';
 import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
 import Todo from "./components/Todo";
@@ -9,6 +7,11 @@ import Login from "./components/Login/Login";
 import Dashboard from "./components/Act";
 import Preferences from "./components/Word";
 import { nanoid } from "nanoid";
+import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+
+import Act from "./components/Act";
+import Word from "./components/Word";
+import Game from "./components/Game";
 
 import './App.css'
 
@@ -22,10 +25,15 @@ const App = () => {
   // }
 
   return (
-    <div id='top' className={`${themeName} app`}>
-      <Header />
-
+    <div>
       <main>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/act" element={ <Act /> } />
+            <Route path="/word" element={ <Word /> } />
+            <Route path="/game" element={ <Game /> } />
+          </Routes>
+        </BrowserRouter>
       </main>
     </div>
   )

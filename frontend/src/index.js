@@ -1,17 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
-import Nav from "./components/Nav/Nav"
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Header from "./components/Header/Header"
 import Act from "./components/Act";
 import Word from "./components/Word";
 import Game from "./components/Game";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <div>
-      <Nav />
+    <div className="main">
+      <Header />
       <BrowserRouter>
         <Routes>
           <Route path="/act" element={ <Act /> } />

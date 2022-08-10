@@ -1,9 +1,0 @@
-.app {
-  font-family: 'Poppins', sans-serif;
-  line-height: 1.5;
-  background-color: var(--color-black);
-}
-
-.dark {
-  --color-black: #121212;
-}
