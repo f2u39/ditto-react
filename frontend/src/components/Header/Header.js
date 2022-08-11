@@ -9,15 +9,15 @@ import './Header.css'
 
 const Header = () => {
   return (
-    <Navbar collapseOnSelect variant="dark" fixed="top">
+    <Navbar className="nav-bar" variant="dark" sticky="top">
       <Container>
         <Navbar.Brand href="/">Ditto</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ms-auto">
-            <Nav.Link className="nav-link" href="/act"><History className="nav-icon" /></Nav.Link>
-            <Nav.Link className="nav-link" href="/word"><Bookmarks className="nav-icon" /></Nav.Link>
             <Nav.Link className="nav-link" href="/game"><VideoGameAsset className="nav-icon" /></Nav.Link>
+            <Nav.Link className="nav-link" href="/word"><Bookmarks className="nav-icon" /></Nav.Link>
+            <Nav.Link className="nav-link" href="/act"><History className="nav-icon" /></Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

@@ -4,39 +4,51 @@ import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
 import Todo from "./components/Todo";
 import Login from "./components/Login/Login";
-import Dashboard from "./components/Act";
-import Preferences from "./components/Word";
 import { nanoid } from "nanoid";
-import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import Act from "./components/Act";
+import Header from "./components/Header/Header"
+import Act from "./components/Act/Act";
 import Word from "./components/Word";
 import Game from "./components/Game";
 
 import './App.css'
 
-const App = () => {
-  const [{ themeName }] = useContext(ThemeContext)
-
+const App = (props) => {
   // const [token, setToken] = useState();
 
   // if (!token) {
   //   return <Login setToken={setToken} />
   // }
 
+  const [acts, setActs] = useState([]);
+  
+  useEffect(() => { fetchActs() }, []);
+
   return (
-    <div>
-      <main>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/act" element={ <Act /> } />
-            <Route path="/word" element={ <Word /> } />
-            <Route path="/game" element={ <Game /> } />
-          </Routes>
-        </BrowserRouter>
-      </main>
-    </div>
+    <main>
+      <Header />
+
+      <BrowserRouter>
+        <Routes>
+          <Route path="/act" element={ <Act data = { acts } /> } />
+          <Route path="/word" element={ <Word /> } />
+          <Route path="/game" element={ <Game /> } />
+        </Routes>
+      </BrowserRouter>
+    </main>
   )
+
+  async function fetchActs() {
+    try {
+        let resp = await fetch('/api/act');
+        let json = await resp.json();
+        console.log(json);
+        setActs(json);
+      } catch(error) {
+        console.log(error);
+    }
+  }
 }
 
 // function usePrevious(value) {
