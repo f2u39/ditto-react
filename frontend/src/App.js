@@ -43,7 +43,7 @@ const App = (props) => {
     try {
         let resp = await fetch('/api/act');
         let json = await resp.json();
-        console.log(json);
+        // console.log(json);
         setActs(json);
       } catch(error) {
         console.log(error);

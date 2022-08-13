@@ -2,16 +2,24 @@ import Table from 'react-bootstrap/Table';
 import * as Icon from 'react-bootstrap-icons';
 
 export default function Act(props) {
-    const daily = (props.data).map(
-        (act) => {
+    const daily_acts = 
+        Array.isArray(props.data.daily_acts) ? props.data.daily_acts : [];
+
+    const daily = (daily_acts).map(
+        (detail) => {
+            console.log(detail);
             return (
                 <tr>
-                    { act.Act.type === 'Gaming' ? <td><Icon.Controller /></td> : <td><Icon.CodeSlash /></td> }
-                    <td>{ act.Act.duration }</td>
+                    { detail.act.type === 'Gaming' ? <td><Icon.Controller /></td> : <td><Icon.CodeSlash /></td> }
+                    <td>{ detail.act.duration }</td>
+                    <td>{ detail.game.title }</td>
                 </tr>
             )
         }
-    )
+    );
+
+    const day_sum = 
+        Array.isArray(props.data.day_sum) ? props.data.day_sum : [];
 
     return (
         <main className="col-10 mx-auto">
@@ -21,14 +29,20 @@ export default function Act(props) {
                         <tr>
                             <th><Icon.Activity /></th>
                             <th><Icon.Clock /></th>
+                            <th>Title</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <th colspan="5">📆Daily</th>
+                            <th colspan="3">📆Daily</th>
                         </tr>
 
                         { daily }
+
+                        <tr>
+                            <td>🎮</td>
+                            <td>{ day_sum.game_dur }</td>
+                        </tr>
                     </tbody>
                 </Table>
             </div>
