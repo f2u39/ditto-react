@@ -1,3 +1,7 @@
+import React, { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Table from 'react-bootstrap/Table';
@@ -5,6 +9,11 @@ import Table from 'react-bootstrap/Table';
 import * as Icon from 'react-bootstrap-icons';
 
 export default function Act(props) {
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     const daily_acts = Array.isArray(props.data.daily_acts) ? props.data.daily_acts : [];
     const daily = (daily_acts).map(
         (detail) => {
@@ -18,7 +27,7 @@ export default function Act(props) {
         }
     );
     
-    const daySum = props.data.day_sum;
+    const daySum = props.data.day_sum != null ? props.data.day_sum : [];
 
     const monthly_acts = Array.isArray(props.data.monthly_acts) ? props.data.monthly_acts : [];
     const monthly = (monthly_acts).map(
@@ -32,14 +41,14 @@ export default function Act(props) {
             )
         }
     );
-    const monthSum = props.data.month_sum;
+    const monthSum = props.data.month_sum != null ? props.data.month_sum : [];
 
     return (
         <main className="col-10 mx-auto">
             <Navbar className="nav-bar" variant="dark" sticky="top">
                 <Nav className="mx-auto">
                     <Nav.Link className="nav-link" href="/api/act/create"><Icon.JournalPlus className="nav-icon text-light" /></Nav.Link>
-                    <Nav.Link className="nav-link" href="#" onClick=""><Icon.Stopwatch className="nav-icon text-light" /></Nav.Link>
+                    <Nav.Link className="nav-link" href="#" onClick={ handleShow }><Icon.Stopwatch className="nav-icon text-light" /></Nav.Link>
                     <Nav.Link className="nav-link" href="/api/act/create"><Icon.Calendar3 className="nav-icon text-light" /></Nav.Link>
                 </Nav>
             </Navbar>
@@ -60,16 +69,18 @@ export default function Act(props) {
 
                         { daily }
                         
-                        {/* <tr>
+                        <tr>
                             <td></td>
                             <td>🎮</td>
-                            <td>{ daySum.game_hour }h { daySum.game_min }m</td>
+                            {/* <td>{ props.daySum.game_hour }h { props.daySum.game_min }m</td> */}
+                            { daySum.length === 0 ? <td></td> : <td>{ daySum.game_hour }h { daySum.game_min }m</td> }
                         </tr>
                         <tr>
                             <td></td>
                             <td>💻</td>
-                            <td>{ daySum.pgm_hour }h { daySum.pgm_min }m</td>
-                        </tr> */}
+                            {/* <td>{ props.daySum.pgm_hour }h { props.daySum.pgm_min }m</td> */}
+                            { daySum.length === 0 ? <td></td> : <td>{ daySum.pgm_hour }h { daySum.pgm_min }m</td> }
+                        </tr>
                     </tbody>
 
                     <tfoot>
@@ -77,19 +88,53 @@ export default function Act(props) {
                             <th colspan="3">📅Monthly</th>
                         </tr>
                         { monthly }
-                        {/* <tr>
+
+                        <tr>
                             <td></td>
                             <td>🎮</td>
-                            <td>{ monthSum.game_hour }h { monthSum.game_min }m</td>
+                            { monthSum.length === 0 ? <td></td> : <td>{ monthSum.game_hour }h { monthSum.game_min }m</td> }
                         </tr>
                         <tr>
                             <td></td>
                             <td>💻</td>
-                            <td>{ monthSum.pgm_hour }h { monthSum.pgm_min }m</td>
-                        </tr> */}
+                            { monthSum.length === 0 ? <td></td> : <td>{ monthSum.pgm_hour }h { monthSum.pgm_min }m</td> }
+                        </tr>
                     </tfoot>
                 </Table>
             </div>
+
+            <Modal show={show} onHide={handleClose} backdrop="static">
+                <Modal.Header closeButton>
+                <Modal.Title>Modal heading</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                <Form>
+                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control
+                        type="email"
+                        placeholder="name@example.com"
+                        autoFocus
+                    />
+                    </Form.Group>
+                    <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlTextarea1"
+                    >
+                    <Form.Label>Example textarea</Form.Label>
+                    <Form.Control as="textarea" rows={3} />
+                    </Form.Group>
+                </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                    Close
+                </Button>
+                <Button variant="primary" onClick={handleClose}>
+                    Save Changes
+                </Button>
+                </Modal.Footer>
+            </Modal>
         </main>
     );
 }
