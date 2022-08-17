@@ -1,0 +1,20 @@
+.dark-modal {
+    background-color: #000;
+    color: #fff;
+ }
+
+.dark-modal .modal-content {
+    background-color: #000;
+    border-color: #fff;
+    color: #fff;
+ }
+
+.dark-control {
+    background-color: #000;
+    color: #fff;
+}
+
+.dark-control:focus {
+    background-color: #000;
+    color: #fff;
+}

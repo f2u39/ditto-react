@@ -15,9 +15,9 @@ const Header = () => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ms-auto">
-            <Nav.Link className="nav-link" href="/game"><VideoGameAsset className="nav-icon" /></Nav.Link>
-            <Nav.Link className="nav-link" href="/word"><Bookmarks className="nav-icon" /></Nav.Link>
-            <Nav.Link className="nav-link" href="/act"><History className="nav-icon" /></Nav.Link>
+            <Nav.Link className="nav-link" href="/game"><VideoGameAsset className="nav-icon" style={{ color: "slateblue" }} /></Nav.Link>
+            <Nav.Link className="nav-link" href="/word"><Bookmarks className="nav-icon" style={{ color: "cadetblue" }} /></Nav.Link>
+            <Nav.Link className="nav-link" href="/act"><History className="nav-icon" style={{ color: "darkorange" }} /></Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
