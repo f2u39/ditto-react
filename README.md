@@ -1,4 +1,4 @@
-# Ditto-React-Javascript
+# Ditto-React-JavaScript
 
 Gonna learn React.
 
