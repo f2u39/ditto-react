@@ -1,4 +1,4 @@
-# Ditto-React
+# Ditto-React-Javascript
 
 Gonna learn React.
 
@@ -9,7 +9,5 @@ Gonna learn React.
 - [Gin (Golang) and React Web App guide](https://letscode.blog/category/gin-golang-and-react-web-app-guide/)
 
 - [How To Code in React.js](https://www.digitalocean.com/community/tutorial_series/how-to-code-in-react-js)
-
-- [Cleanfolio](https://github.com/rajshekhar26/cleanfolio)
 
 - [React.js Login & Registration example – JWT & HttpOnly Cookie](https://www.bezkoder.com/react-login-example-jwt-hooks/)
