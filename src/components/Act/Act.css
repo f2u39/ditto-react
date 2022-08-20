@@ -10,11 +10,11 @@
  }
 
 .dark-control {
-    background-color: #000;
-    color: #fff;
+    background-color: #000 !important;
+    color: #fff !important;
 }
 
-.dark-control:focus {
+.dark-control:focus, .dark-control:hover {
     background-color: #000;
     color: #fff;
 }

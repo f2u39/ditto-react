@@ -111,13 +111,15 @@ export default function Act(props) {
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                        <Form.Group className="mb-3" controlId="">
                             <Form.Label>Type</Form.Label>
-                            <Form.Select className="dark-control" />
+                            <Form.Select className="dark-control">
+                                <option>Large select</option>
+                            </Form.Select>
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                        <Form.Group className="mb-3" controlId="">
                             <Form.Label>Example textarea</Form.Label>
-                            <Form.Select className="dark-control" rows={3} />
+                            <Form.Select className="dark-control" />
                         </Form.Group>
                     </Form>
                 </Modal.Body>
@@ -125,8 +127,8 @@ export default function Act(props) {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>
-                        Save Changes
+                    <Button variant="success" onClick={handleClose}>
+                        Save
                     </Button>
                 </Modal.Footer>
             </Modal>

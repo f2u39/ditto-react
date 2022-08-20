@@ -1,16 +1,13 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
-import { ThemeContext } from './contexts/theme';
-import Form from "./components/Form";
-import FilterButton from "./components/FilterButton";
-import Todo from "./components/Todo";
-import Login from "./components/Login/Login";
-import { nanoid } from "nanoid";
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
 
 import Header from "./components/Header/Header"
 import Act from "./components/Act/Act";
 import Word from "./components/Word";
 import Game from "./components/Game";
+
+import Invoices from "./components/Invoices"
+import Invoice from "./components/Invoice"
 
 import './App.css'
 
@@ -32,8 +29,18 @@ const App = (props) => {
       <BrowserRouter>
         <Routes>
           <Route path="/act" element={ <Act data = { acts } /> } />
-          <Route path="/word" element={ <Word /> } />
+          {/* <Route path="/word" element={ <Word /> } /> */}
           <Route path="/game" element={ <Game /> } />
+
+          <Route path="invoices" element={<Invoices />}>
+            <Route index element={
+                <div style={{ padding: '1rem' }}>
+                  <p>Select an invoice</p>
+                </div>
+              } />
+            <Route path=":invoiceId" element={<Invoice />} />
+          </Route>
+
         </Routes>
       </BrowserRouter>
     </main>
