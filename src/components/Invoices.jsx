@@ -20,8 +20,9 @@ export default function Invoices() {
   return (
     <main className="col-8 mx-auto">
       <div style={{ display: 'flex' }}>
-        <nav style={{ borderRight: 'solid 1px', padding: '1rem' }}>
+        <nav>
           <input
+            style={{ border: 'solid' }}
             value={searchParams.get('filter') || ''}
             onChange={(event) => {
               let filter = event.target.value;
@@ -32,6 +33,7 @@ export default function Invoices() {
               }
             }}
           />
+          
           {invoices
             .filter((invoice) => {
               let filter = searchParams.get('filter');
