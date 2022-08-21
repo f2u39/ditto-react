@@ -12,7 +12,6 @@ import './Act.css'
 
 export default function Act(props) {
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -30,7 +29,6 @@ export default function Act(props) {
     );
     
     const daySum = props.data.day_sum != null ? props.data.day_sum : [];
-
     const monthly_acts = Array.isArray(props.data.monthly_acts) ? props.data.monthly_acts : [];
     const monthly = (monthly_acts).map(
         (detail) => {
@@ -46,12 +44,12 @@ export default function Act(props) {
     const monthSum = props.data.month_sum != null ? props.data.month_sum : [];
 
     return (
-        <main className="col-10 mx-auto">
+        <main className="col-8 mx-auto">
             <Navbar className="nav-bar" variant="dark" sticky="top">
                 <Nav className="mx-auto">
-                    <Nav.Link className="nav-link" href="/api/act/create"><Icon.JournalPlus className="nav-icon text-light" /></Nav.Link>
+                    <Nav.Link className="nav-link" href="/act/create"><Icon.JournalPlus className="nav-icon text-light" /></Nav.Link>
                     <Nav.Link className="nav-link" href="#" onClick={ handleShow }><Icon.Stopwatch className="nav-icon text-light" /></Nav.Link>
-                    <Nav.Link className="nav-link" href="/api/act/create"><Icon.Calendar3 className="nav-icon text-light" /></Nav.Link>
+                    <Nav.Link className="nav-link" href="/act/create"><Icon.Calendar3 className="nav-icon text-light" /></Nav.Link>
                 </Nav>
             </Navbar>
 

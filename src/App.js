@@ -3,6 +3,7 @@ import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
 
 import Header from "./components/Header/Header"
 import Act from "./components/Act/Act";
+import ActCreateForm from "./components/Act/ActCreateForm"
 import Word from "./components/Word";
 import Game from "./components/Game";
 
@@ -28,7 +29,9 @@ const App = (props) => {
 
       <BrowserRouter>
         <Routes>
-          <Route path="/act" element={ <Act data = { acts } /> } />
+          <Route path="/act" element={<Act data={acts} />}></Route>
+          <Route path="/act/create" element={<ActCreateForm />}></Route>
+
           {/* <Route path="/word" element={ <Word /> } /> */}
           <Route path="/game" element={ <Game /> } />
 
@@ -265,5 +268,6 @@ const App = (props) => {
 //     </div>
 //   );
 // }
+
 
 export default App;
