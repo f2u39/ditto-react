@@ -5,6 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import History from '@mui/icons-material/History';
 import Bookmarks from '@mui/icons-material/Bookmarks';
 import VideoGameAsset from '@mui/icons-material/VideogameAsset';
+import DarkMode from '../DarkMode'
 
 import './Header.css'
 
@@ -12,6 +13,7 @@ const Header = () => {
   return (
     <Navbar className="nav-bar" variant="dark" sticky="top">
       <Container>
+        <DarkMode />
         <Navbar.Brand href="/">Ditto</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">

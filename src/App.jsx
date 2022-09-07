@@ -10,56 +10,79 @@ import Game from "./components/Game";
 import Invoices from "./components/Invoices"
 import Invoice from "./components/Invoice"
 
+import DarkMode from "./components/DarkMode"
+
 import './App.css'
 
-const App = (props) => {
-  // const [token, setToken] = useState();
-
-  // if (!token) {
-  //   return <Login setToken={setToken} />
-  // }
-
-  const [acts, setActs] = useState([]);
-  
-  useEffect(() => { fetchActs() }, []);
-
+function App() {
   return (
-    <main>
-      <Header />
-
-      <BrowserRouter>
-        <Routes>
-          <Route path="/act" element={<Act data={acts} />}></Route>
-          <Route path="/act/create" element={<ActCreateForm />}></Route>
-
-          {/* <Route path="/word" element={ <Word /> } /> */}
-          <Route path="/game" element={ <Game /> } />
-
-          <Route path="invoices" element={<Invoices />}>
-            <Route index element={
-                <div style={{ padding: '1rem' }}>
-                  <p>Select an invoice</p>
-                </div>
-              } />
-            <Route path=":invoiceId" element={<Invoice />} />
-          </Route>
-
-        </Routes>
-      </BrowserRouter>
-    </main>
-  )
-
-  async function fetchActs() {
-    try {
-        let resp = await fetch('/api/act');
-        let json = await resp.json();
-        // console.log(json);
-        setActs(json);
-      } catch(error) {
-        console.log(error);
-    }
-  }
+    <div className="App">
+      <header className="App-header">
+        <DarkMode />
+        <p>
+          Edit <code>src/App.tsx</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
 }
+
+// const App = (props) => {
+//   // const [token, setToken] = useState();
+
+//   // if (!token) {
+//   //   return <Login setToken={setToken} />
+//   // }
+
+//   const [acts, setActs] = useState([]);
+
+//   useEffect(() => { fetchActs() }, []);
+
+//   return (
+//     <div className="App">
+//       <Header />
+
+//       <BrowserRouter>
+//         <Routes>
+//           <Route path="/act" element={<Act data={acts} />}></Route>
+//           <Route path="/act/create" element={<ActCreateForm />}></Route>
+
+//           {/* <Route path="/word" element={ <Word /> } /> */}
+//           <Route path="/game" element={<Game />} />
+
+//           <Route path="invoices" element={<Invoices />}>
+//             <Route index element={
+//               <div style={{ padding: '1rem' }}>
+//                 <p>Select an invoice</p>
+//               </div>
+//             } />
+//             <Route path=":invoiceId" element={<Invoice />} />
+//           </Route>
+
+//         </Routes>
+//       </BrowserRouter>
+//     </div>
+//   )
+
+//   async function fetchActs() {
+//     try {
+//       let resp = await fetch('/api/act');
+//       let json = await resp.json();
+//       // console.log(json);
+//       setActs(json);
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   }
+// }
 
 // function usePrevious(value) {
 //   const ref = useRef();
@@ -157,7 +180,7 @@ const App = (props) => {
 //         console.log("Failed to delete!");
 //       }
 //     });
-    
+
 //     fetchTodos();
 //   }
 
@@ -183,7 +206,7 @@ const App = (props) => {
 //         throw new Error(errorText);
 //       }
 //     }
-    
+
 //     // fetchTodos();
 //     fetch('/api/todo',)
 //         .then(function(response){

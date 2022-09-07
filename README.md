@@ -1,4 +1,4 @@
-# Ditto-React-JavaScript
+# Ditto-React
 
 Gonna learn React.
 
@@ -11,3 +11,5 @@ Gonna learn React.
 - [How To Code in React.js](https://www.digitalocean.com/community/tutorial_series/how-to-code-in-react-js)
 
 - [React.js Login & Registration example – JWT & HttpOnly Cookie](https://www.bezkoder.com/react-login-example-jwt-hooks/)
+
+- [How to Create a Dark Mode Component in React](https://dev.to/alexeagleson/how-to-create-a-dark-mode-component-in-react-3ibg)

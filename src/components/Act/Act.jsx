@@ -9,6 +9,7 @@ import Table from 'react-bootstrap/Table'
 import * as Icon from 'react-bootstrap-icons'
 
 import './Act.css'
+import DarkMode from '../DarkMode'
 
 export default function Act(props) {
     const [show, setShow] = useState(false);
