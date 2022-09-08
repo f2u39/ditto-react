@@ -3,14 +3,11 @@
     --background-color: #4B0082;
     --link-color: #C71585;
 }
-
-
 [data-theme="dark"] {
     --font-color: #EEEEEE;
     --background-color: #333333;
     --link-color: #C71585;
 }
-
 
 body {
     background-color: var(--background-color);

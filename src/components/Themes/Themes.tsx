@@ -1,4 +1,4 @@
-import "./Themes.css";
+import "./themes.css";
 import { ChangeEventHandler } from "react";
 
 const setDark = () => {
