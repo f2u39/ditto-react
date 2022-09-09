@@ -2,10 +2,15 @@ import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+import Link from '@mui/material/Link';
+import History from '@mui/icons-material/History';
+import Bookmarks from '@mui/icons-material/Bookmarks';
+import VideoGameAsset from '@mui/icons-material/VideogameAsset';
 import Themes from '../themes/themes';
 
 export default function Nav() {
@@ -13,24 +18,44 @@ export default function Nav() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none' }}>
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-            <Themes />
-          </IconButton>
+          <Themes />
 
-          {/* <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
-          </Typography> */}
+          <Typography sx={{ flexGrow: 1 }} />
 
-          <Typography sx={{ flexGrow: 1}} />
+          <Link href="/game">
+            <IconButton
+              size="large"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              color="inherit"
+            >
+              <VideoGameAsset  sx={{ fontSize: 30, color: "slateblue" }} />
+            </IconButton>
+          </Link>
 
-          <Button color="inherit">Login</Button>
+          <Link href="/word">
+            <IconButton
+              size="large"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              color="inherit"
+            >
+              <Bookmarks  sx={{ fontSize: 30, color: "cadetblue" }} />
+            </IconButton>
+          </Link>
+
+          <Link href="/act">
+            <IconButton
+              size="large"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              color="inherit"
+            >
+              <History  sx={{ fontSize: 30, color: "darkorange" }} />
+            </IconButton>
+          </Link>
+          
+          {/* <Button color="inherit"><VideoGameAsset style={{ color: "slateblue" }} /></Button> */}
         </Toolbar>
       </AppBar>
     </Box>

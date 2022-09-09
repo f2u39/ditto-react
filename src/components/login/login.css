@@ -1,0 +1,50 @@
+.app {
+  width: 100%;
+  height: 100%;
+  background-color: #121212;
+}
+
+.signin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.form {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form .form-control:focus {
+  z-index: 2;
+}
+.form input[type="text"] {
+  color: #C3B1E1;
+  background-color: #121212;
+  border-color: #C3B1E1;
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form input[type="password"] {
+  color: #C3B1E1;
+  background-color: #121212;
+  border-color: #C3B1E1;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.form button {
+  width: 100%;
+  color: #C3B1E1;
+  border-color: #C3B1E1;
+  margin-top: 10px;
+}
