@@ -11,7 +11,7 @@ import Link from '@mui/material/Link';
 import History from '@mui/icons-material/History';
 import Bookmarks from '@mui/icons-material/Bookmarks';
 import VideoGameAsset from '@mui/icons-material/VideogameAsset';
-import Themes from '../themes/themes';
+import Themes from '../Themes/Themes';
 
 export default function Nav() {
   return (

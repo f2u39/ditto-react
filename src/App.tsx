@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
 import Grid from '@mui/material/Grid';
-import Themes from './components/themes/themes';
+import Themes from './components/Themes/Themes';
 import Nav from './components/Nav/Nav';
 import Login from './components/login/login';
 import SignIn from './components/SignIn/SignIn';
