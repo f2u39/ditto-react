@@ -12,7 +12,28 @@ import PersonIcon from '@mui/icons-material/Person';
 import KeyIcon from '@mui/icons-material/Key';
 import LoginIcon from '@mui/icons-material/Login';
 
-export default function SignIn(setUserToken: React.Dispatch<React.SetStateAction<string>>) {
+async function login(credentials: { username: string; password: string; }) {
+  // console.log(credentials);
+  return fetch('/api/user/login', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(credentials)
+  }).then(response => {
+      if (response.ok) {
+          return response.json();
+      } else {
+          return null;
+      }
+  })
+}
+
+SignIn.propTypes = {
+  setUserToken: PropTypes.func.isRequired
+}
+
+export default function SignIn({ setUserToken }: {setUserToken: any}) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -22,12 +43,8 @@ export default function SignIn(setUserToken: React.Dispatch<React.SetStateAction
         username, password
     });
 
-    if (userToken == null) {
-        alert("(ノ｀Д)ノ");
-    } else {
-        setUserToken(userToken);
-    }
-  };
+    setUserToken(userToken);
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -54,6 +71,8 @@ export default function SignIn(setUserToken: React.Dispatch<React.SetStateAction
                 fullWidth
                 id="username"
                 name="username"
+                value={username}
+                onChange = { e => setUsername(e.target.value)}
                 autoFocus
                 InputProps={{
                   startAdornment: (
@@ -72,6 +91,8 @@ export default function SignIn(setUserToken: React.Dispatch<React.SetStateAction
                 name="password"
                 type="password"
                 id="password"
+                value={password}
+                onChange = { e => setPassword(e.target.value)}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -104,26 +125,6 @@ export default function SignIn(setUserToken: React.Dispatch<React.SetStateAction
       </Box>
     </Container>
   );
-}
-
-async function login(credentials: { username: string; password: string; }) {
-  return fetch('/api/user/login', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(credentials)
-  }).then(response => {
-      if (response.ok) {
-          return response.json();
-      } else {
-          return null;
-      }
-  })
-}
-
-SignIn.propTypes = {
-  setUserToken: PropTypes.func.isRequired
 }
 
 const UsernameTextField = styled(TextField)(() => ({

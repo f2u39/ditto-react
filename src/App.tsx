@@ -11,15 +11,16 @@ import './App.css';
 function App() {
   // Login
   const [userToken, setUserToken] = useState("");
+  
   if (!userToken) {
     return <SignIn setUserToken={ setUserToken } />
-  } else {
-    return (
-      <div className="App">
-        {/* <Nav /> */}
-      </div>
-    );
   }
+
+  return (
+    <div className="App">
+      <Nav />
+    </div>
+  );
 }
 
 export default App;
