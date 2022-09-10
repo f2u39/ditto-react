@@ -1,76 +1,169 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { styled } from '@mui/material';
 
-const theme = createTheme();
+import InputAdornment from '@mui/material/InputAdornment';
+import PersonIcon from '@mui/icons-material/Person';
+import KeyIcon from '@mui/icons-material/Key';
+import LoginIcon from '@mui/icons-material/Login';
 
+// export default function SignIn(setUserToken: React.Dispatch<React.SetStateAction<string>>) {
 export default function SignIn() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const userToken = await login({
+        username, password
     });
+
+    if (userToken == null) {
+        alert("(ノ｀Д)ノ");
+    } else {
+        // setUserToken(userToken);
+    }
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              size="large"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
-          </Box>
+    <Container component="main" maxWidth="xs">
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Grid
+            container
+            spacing={0}
+            direction="column"
+            alignItems="center"
+            justifyContent="center"
+            style={{ minHeight: '100vh' }}
+          >
+            <Grid item xs={3}>
+              <UsernameTextField
+                required
+                fullWidth
+                id="username"
+                name="username"
+                autoFocus
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <PersonIcon 
+                        fontSize="large"
+                        sx={{ color: '#b9a3db' }}
+                      />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <PasswordTextField
+                required
+                fullWidth
+                name="password"
+                type="password"
+                id="password"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <KeyIcon 
+                        fontSize="large"
+                        sx={{ color: '#b9a3db' }}
+                      />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="outlined"
+                size="large"
+                sx={{ mt: 1.2 }}
+                style={{ 
+                  textTransform: "none",
+                  padding: "14px 0px",
+                  color: '#b9a3db',
+                  borderColor: '#b9a3db'
+                }}
+              >
+                <LoginIcon />
+              </Button>
+            </Grid>
+          </Grid>
         </Box>
-      </Container>
-    </ThemeProvider>
+      </Box>
+    </Container>
   );
 }
+
+async function login(credentials: { username: string; password: string; }) {
+  return fetch('/api/user/login', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(credentials)
+  }).then(response => {
+      if (response.ok) {
+          return response.json();
+      } else {
+          return null;
+      }
+  })
+}
+
+// SignIn.propTypes = {
+//   setUserToken: PropTypes.func.isRequired
+// }
+
+const UsernameTextField = styled(TextField)(() => ({
+  "& .MuiInputBase-root": {
+      color: '#b9a3db'
+  },
+  '& fieldset': {
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+  },
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: '#b9a3db',
+    },
+    '&:hover fieldset': {
+      borderColor: '#b9a3db',
+    },
+    // '&.Mui-focused fieldset': {
+    //   borderColor: '#3c005a',
+    // },
+  },
+}));
+
+const PasswordTextField = styled(TextField)(() => ({
+  "& .MuiInputBase-root": {
+    color: '#b9a3db'
+  },
+  '& fieldset': {
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 0,
+  },
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: '#b9a3db',
+    },
+    '&:hover fieldset': {
+      borderColor: '#b9a3db',
+    },
+    // '&.Mui-focused fieldset': {
+    //   borderColor: '#3c005a',
+    // },
+  },
+}));

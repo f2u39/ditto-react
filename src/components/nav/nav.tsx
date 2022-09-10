@@ -18,7 +18,7 @@ export default function Nav() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none' }}>
         <Toolbar>
-          <Themes />
+          {/* <Themes /> */}
 
           <Typography sx={{ flexGrow: 1 }} />
 
