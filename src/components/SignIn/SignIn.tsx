@@ -5,14 +5,14 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { styled } from '@mui/material';
+import PropTypes from 'prop-types';
 
 import InputAdornment from '@mui/material/InputAdornment';
 import PersonIcon from '@mui/icons-material/Person';
 import KeyIcon from '@mui/icons-material/Key';
 import LoginIcon from '@mui/icons-material/Login';
 
-// export default function SignIn(setUserToken: React.Dispatch<React.SetStateAction<string>>) {
-export default function SignIn() {
+export default function SignIn(setUserToken: React.Dispatch<React.SetStateAction<string>>) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -25,7 +25,7 @@ export default function SignIn() {
     if (userToken == null) {
         alert("(ノ｀Д)ノ");
     } else {
-        // setUserToken(userToken);
+        setUserToken(userToken);
     }
   };
 
@@ -122,9 +122,9 @@ async function login(credentials: { username: string; password: string; }) {
   })
 }
 
-// SignIn.propTypes = {
-//   setUserToken: PropTypes.func.isRequired
-// }
+SignIn.propTypes = {
+  setUserToken: PropTypes.func.isRequired
+}
 
 const UsernameTextField = styled(TextField)(() => ({
   "& .MuiInputBase-root": {
