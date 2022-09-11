@@ -12,38 +12,40 @@ import PersonIcon from '@mui/icons-material/Person';
 import KeyIcon from '@mui/icons-material/Key';
 import LoginIcon from '@mui/icons-material/Login';
 
+import './SignIn.css';
+
 async function login(credentials: { username: string; password: string; }) {
   // console.log(credentials);
-  return fetch('/api/user/login', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(credentials)
+  return fetch('http://unifuu.com/api/user/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(credentials)
   }).then(response => {
-      if (response.ok) {
-          return response.json();
-      } else {
-          return null;
-      }
+    if (response.ok) {
+      return response.json();
+    } else {
+      return null;
+    }
   })
 }
 
 SignIn.propTypes = {
-  setUserToken: PropTypes.func.isRequired
+  setToken: PropTypes.func.isRequired
 }
 
-export default function SignIn({ setUserToken }: {setUserToken: any}) {
+export default function SignIn({ setToken }: { setToken: any }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     const userToken = await login({
-        username, password
+      username, password
     });
-
-    setUserToken(userToken);
+    console.log(userToken);
+    setToken(userToken);
   }
 
   return (
@@ -72,17 +74,18 @@ export default function SignIn({ setUserToken }: {setUserToken: any}) {
                 id="username"
                 name="username"
                 value={username}
-                onChange = { e => setUsername(e.target.value)}
+                onChange={e => setUsername(e.target.value)}
                 autoFocus
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <PersonIcon 
+                      <PersonIcon
                         fontSize="large"
                         sx={{ color: '#b9a3db' }}
                       />
                     </InputAdornment>
                   ),
+                  style: { WebkitBoxShadow: '0 0 0px 1000px #333333 inset' },
                 }}
               />
               <PasswordTextField
@@ -92,11 +95,11 @@ export default function SignIn({ setUserToken }: {setUserToken: any}) {
                 type="password"
                 id="password"
                 value={password}
-                onChange = { e => setPassword(e.target.value)}
+                onChange={e => setPassword(e.target.value)}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <KeyIcon 
+                      <KeyIcon
                         fontSize="large"
                         sx={{ color: '#b9a3db' }}
                       />
@@ -110,7 +113,7 @@ export default function SignIn({ setUserToken }: {setUserToken: any}) {
                 variant="outlined"
                 size="large"
                 sx={{ mt: 1.2 }}
-                style={{ 
+                style={{
                   textTransform: "none",
                   padding: "14px 0px",
                   color: '#b9a3db',
@@ -129,7 +132,7 @@ export default function SignIn({ setUserToken }: {setUserToken: any}) {
 
 const UsernameTextField = styled(TextField)(() => ({
   "& .MuiInputBase-root": {
-      color: '#b9a3db'
+    color: '#b9a3db'
   },
   '& fieldset': {
     borderBottomLeftRadius: 0,

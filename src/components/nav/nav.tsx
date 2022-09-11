@@ -2,16 +2,12 @@ import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Link from '@mui/material/Link';
 import History from '@mui/icons-material/History';
 import Bookmarks from '@mui/icons-material/Bookmarks';
 import VideoGameAsset from '@mui/icons-material/VideogameAsset';
-import Themes from '../Themes/Themes';
 
 export default function Nav() {
   return (
