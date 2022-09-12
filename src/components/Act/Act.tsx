@@ -12,18 +12,20 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 
 export default function Act() {
     const [acts, setActs] = useState({
-        dailyActs: [],
-        daySum: "",
-        monthlyActs: [],
-        monthSum: ""
+        daily_acts: [],
+        day_sum: "",
+        monthly_acts: [],
+        month_sum: ""
     });
 
     useEffect(() => {
         fetchActs();
     }, []);
 
-    const daily_acts = Array.isArray(acts.dailyActs) ? acts.dailyActs : [];
-    const daily = (daily_acts).map(
+    const dailyActs = Array.isArray(acts.daily_acts) ? acts.daily_acts : [];
+    // console.log(daily_acts);
+
+    const daily = (dailyActs).map(
         (detail: any) => {
             return (
                 <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
@@ -43,57 +45,42 @@ export default function Act() {
         }
     );
 
-    const daySum = acts.daySum != null ? acts.daySum : [];
-    const monthly_acts = Array.isArray(acts.monthlyActs) ? acts.monthlyActs : [];
-    const monthly = (monthly_acts).map(
-        (detail: any) => {
-            return (
-                <tr>
-                    {
-                        detail.act.type === 'Gaming' ?
-                            <td><SportsEsportsIcon /></td> :
-                            <td><GitHubIcon /></td>
-                    }
-                    <td>{detail.act.duration}</td>
-                    {
-                        detail.game.length === 1 ?
-                            <td>{detail.game[0].title}</td> :
-                            <td></td>
-                    }
-                </tr>
-            )
-        }
-    );
-    const monthSum = acts.monthSum != null ? acts.monthSum : [];
+    // const daySum = acts.day_sum != null ? acts.day_sum : [];
+    // const monthlyActs = Array.isArray(acts.monthly_acts) ? acts.monthly_acts : [];
+    // const monthly = (monthlyActs).map(
+    //     (detail: any) => {
+    //         return (
+    //             <tr>
+    //                 {
+    //                     detail.act.type === 'Gaming' ?
+    //                         <td><SportsEsportsIcon /></td> :
+    //                         <td><GitHubIcon /></td>
+    //                 }
+    //                 <td>{detail.act.duration}</td>
+    //                 {
+    //                     detail.game.length === 1 ?
+    //                         <td>{detail.game[0].title}</td> :
+    //                         <td></td>
+    //                 }
+    //             </tr>
+    //         )
+    //     }
+    // );
+    // const monthSum = acts.month_sum != null ? acts.month_sum : [];
 
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>Dessert (100g serving)</TableCell>
-                        <TableCell align="right">Calories</TableCell>
-                        <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                        <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                        <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                        <TableCell>1</TableCell>
+                        <TableCell align="right">2</TableCell>
+                        <TableCell align="right">3</TableCell>
                     </TableRow>
                 </TableHead>
 
                 <TableBody>
-                    {/* {rows.map((row) => (
-                        <TableRow
-                        key={row.name}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                        <TableCell component="th" scope="row">
-                            {row.name}
-                        </TableCell>
-                        <TableCell align="right">{row.calories}</TableCell>
-                        <TableCell align="right">{row.fat}</TableCell>
-                        <TableCell align="right">{row.carbs}</TableCell>
-                        <TableCell align="right">{row.protein}</TableCell>
-                        </TableRow>
-                    ))} */}
+                    { daily }
                 </TableBody>
             </Table>
         </TableContainer>
@@ -103,7 +90,7 @@ export default function Act() {
         try {
             let resp = await fetch('/api/act');
             let json = await resp.json();
-            // console.log(json);
+            console.log(json);
             setActs(json);
         } catch (error) {
             console.log(error);

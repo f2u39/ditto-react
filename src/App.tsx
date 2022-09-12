@@ -11,24 +11,24 @@ import useToken from './useToken';
 import './App.css';
 
 function App() {
-  const { token, setToken } = useToken();
+  // const { token, setToken } = useToken();
 
-  console.log(token);
-  if (!token) {
-    return <SignIn setToken={setToken} />
-  }
+  // console.log(token);
+  // if (!token) {
+  //   return <SignIn setToken={setToken} />
+  // }
 
   return (
     <div className="App">
       <Nav />
 
-      {/* <BrowserRouter>
+      <BrowserRouter>
         <Routes>
           <Route path="/act" element={<Act />} />
           <Route path="/word" element={<Word />} />
           <Route path="/game" element={<Game />} />
         </Routes>
-      </BrowserRouter> */}
+      </BrowserRouter>
     </div>
   );
 }
