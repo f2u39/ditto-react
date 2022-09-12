@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -69,8 +70,9 @@ export default function Act() {
     // const monthSum = acts.month_sum != null ? acts.month_sum : [];
 
     return (
-        <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+
+        <TableContainer>
+            <Table sx={{ maxWidth: 300 }} aria-label="simple table">
                 <TableHead>
                     <TableRow>
                         <TableCell>1</TableCell>
@@ -80,10 +82,11 @@ export default function Act() {
                 </TableHead>
 
                 <TableBody>
-                    { daily }
+                    {daily}
                 </TableBody>
             </Table>
         </TableContainer>
+
     )
 
     async function fetchActs() {
