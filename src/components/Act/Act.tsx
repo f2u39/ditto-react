@@ -7,6 +7,15 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { AppBar, Box, Grid, IconButton, Link, Toolbar, Typography } from '@mui/material';
+
+import PostAddIcon from '@mui/icons-material/PostAdd';
+import TimerIcon from '@mui/icons-material/Timer';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import TocIcon from '@mui/icons-material/Toc';
 
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -70,23 +79,72 @@ export default function Act() {
     // const monthSum = acts.month_sum != null ? acts.month_sum : [];
 
     return (
+        <Grid container
+            direction="column"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+        >
+            <Grid item xs={8}>
+                <Box sx={{ flexGrow: 1 }}>
+                    <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none' }}>
+                        <Toolbar>
+                            <Typography sx={{ flexGrow: 1 }} />
 
-        <TableContainer>
-            <Table sx={{ maxWidth: 300 }} aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell>1</TableCell>
-                        <TableCell align="right">2</TableCell>
-                        <TableCell align="right">3</TableCell>
-                    </TableRow>
-                </TableHead>
+                            <Link href="/game">
+                                <IconButton
+                                    size="large"
+                                    aria-controls="menu-appbar"
+                                    aria-haspopup="true"
+                                    color="inherit"
+                                >
+                                    <PostAddIcon sx={{ fontSize: 30, color: "lavender" }} />
+                                </IconButton>
+                            </Link>
 
-                <TableBody>
-                    {daily}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                            <Link href="/word">
+                                <IconButton
+                                    size="large"
+                                    aria-controls="menu-appbar"
+                                    aria-haspopup="true"
+                                    color="inherit"
+                                >
+                                    <TimerIcon sx={{ fontSize: 30, color: "lavender" }} />
+                                </IconButton>
+                            </Link>
 
+                            <Link href="/act">
+                                <IconButton
+                                    size="large"
+                                    aria-controls="menu-appbar"
+                                    aria-haspopup="true"
+                                    color="inherit"
+                                >
+                                    <CalendarMonthIcon sx={{ fontSize: 30, color: "lavender" }} />
+                                </IconButton>
+                            </Link>
+
+                            <Typography sx={{ flexGrow: 1 }} />
+                        </Toolbar>
+                    </AppBar>
+                </Box>
+                <TableContainer>
+                    <Table sx={{ maxWidth: 400 }}>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>1</TableCell>
+                                <TableCell align="right">2</TableCell>
+                                <TableCell align="right">3</TableCell>
+                            </TableRow>
+                        </TableHead>
+
+                        <TableBody>
+                            {daily}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Grid>
+        </Grid>
     )
 
     async function fetchActs() {
