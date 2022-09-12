@@ -4,7 +4,8 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import Link from '@mui/material/Link';
+// import Link from '@mui/material/Link';
+import { Link } from "react-router-dom";
 import History from '@mui/icons-material/History';
 import Bookmarks from '@mui/icons-material/Bookmarks';
 import VideoGameAsset from '@mui/icons-material/VideogameAsset';
@@ -18,7 +19,7 @@ export default function Nav() {
 
           <Typography sx={{ flexGrow: 1 }} />
 
-          <Link href="/game">
+          <Link to="/game">
             <IconButton
               size="large"
               aria-controls="menu-appbar"
@@ -29,7 +30,7 @@ export default function Nav() {
             </IconButton>
           </Link>
 
-          <Link href="/word">
+          <Link to="/word">
             <IconButton
               size="large"
               aria-controls="menu-appbar"
@@ -40,7 +41,7 @@ export default function Nav() {
             </IconButton>
           </Link>
 
-          <Link href="/act">
+          <Link to="/act">
             <IconButton
               size="large"
               aria-controls="menu-appbar"

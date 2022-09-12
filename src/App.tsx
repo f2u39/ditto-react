@@ -12,23 +12,23 @@ import './App.css';
 
 function App() {
   const { token, setToken } = useToken();
-  
+
   console.log(token);
   if (!token) {
-    return <SignIn setToken={ setToken } />
+    return <SignIn setToken={setToken} />
   }
 
   return (
     <div className="App">
       <Nav />
 
-      <BrowserRouter>
-      <Routes>
-        <Route path="/act" element={ <Act /> } />
-        <Route path="/word" element={ <Word /> } />
-        <Route path="/game" element={ <Game /> } />
-      </Routes>
-    </BrowserRouter>
+      {/* <BrowserRouter>
+        <Routes>
+          <Route path="/act" element={<Act />} />
+          <Route path="/word" element={<Word />} />
+          <Route path="/game" element={<Game />} />
+        </Routes>
+      </BrowserRouter> */}
     </div>
   );
 }
