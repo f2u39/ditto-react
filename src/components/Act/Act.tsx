@@ -6,8 +6,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { AppBar, Box, Grid, IconButton, Link, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Grid, IconButton, Link, Tab, Toolbar, Typography } from '@mui/material';
 
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import TimerIcon from '@mui/icons-material/Timer';
@@ -15,7 +14,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import TocIcon from '@mui/icons-material/Toc';
+import ReorderIcon from '@mui/icons-material/Reorder';
 
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -23,9 +22,9 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 export default function Act() {
     const [acts, setActs] = useState({
         daily_acts: [],
-        day_sum: "",
+        day_sum: [],
         monthly_acts: [],
-        month_sum: ""
+        month_sum: []
     });
 
     useEffect(() => {
@@ -33,12 +32,10 @@ export default function Act() {
     }, []);
 
     const dailyActs = Array.isArray(acts.daily_acts) ? acts.daily_acts : [];
-    // console.log(daily_acts);
-
-    const daily = (dailyActs).map(
+    const DailyTableRows = (dailyActs).map(
         (detail: any) => {
             return (
-                <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                <TableRow key={detail.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                     {
                         detail.act.type === 'Gaming' ?
                             <TableCell component="th" scope="row"><SportsEsportsIcon /></TableCell> :
@@ -55,7 +52,28 @@ export default function Act() {
         }
     );
 
-    // const daySum = acts.day_sum != null ? acts.day_sum : [];
+    const daySum = acts.day_sum === null ? [] : acts.day_sum;
+    // Object.entries(daySum).find(([key, value]) => {
+    //     console.log(value);
+    // });
+    
+    // console.log({daySum.game_min})
+
+    // const DaySumTableRow = (daySum).map(
+    //     (detail: any) => {
+    //         return (
+    //             <TableRow>
+    //                 {/* <TableCell colSpan={2}>🎮</TableCell>
+    //                 <TableCell align="right"></TableCell> :
+    //                 <TableCell align="right">{detail.game_hour} h {detail.game_min} m</TableCell> */}
+    //                 <TableCell>🎮</TableCell>
+    //                 <TableCell>🎮</TableCell>
+    //                 <TableCell>🎮</TableCell>
+    //             </TableRow>
+    //         )
+    //     }
+    // );
+
     // const monthlyActs = Array.isArray(acts.monthly_acts) ? acts.monthly_acts : [];
     // const monthly = (monthlyActs).map(
     //     (detail: any) => {
@@ -129,17 +147,32 @@ export default function Act() {
                     </AppBar>
                 </Box>
                 <TableContainer>
-                    <Table sx={{ maxWidth: 400 }}>
+                    <Table sx={{ maxWidth: 500 }}>
                         <TableHead>
                             <TableRow>
-                                <TableCell>1</TableCell>
-                                <TableCell align="right">2</TableCell>
-                                <TableCell align="right">3</TableCell>
+                                <TableCell><FormatListBulletedIcon /></TableCell>
+                                <TableCell align="right"><AccessTimeIcon /></TableCell>
+                                <TableCell align="right"><ReorderIcon /></TableCell>
                             </TableRow>
                         </TableHead>
 
                         <TableBody>
-                            {daily}
+                            {DailyTableRows}
+
+                            <TableRow>
+                                <TableCell colSpan={3}>📆Daily</TableCell>
+                            </TableRow>
+
+                            {/* <TableRow>
+                                <TableCell colSpan={2}>🎮</TableCell>
+                                {
+                                    daySum.length === 0 ?
+                                        <TableCell></TableCell> :
+                                        <TableCell>{daySum}h ?m</TableCell>
+                                }
+                            </TableRow> */}
+
+                            {/* {DaySumTableRow} */}
                         </TableBody>
                     </Table>
                 </TableContainer>
