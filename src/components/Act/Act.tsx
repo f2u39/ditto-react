@@ -6,7 +6,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { AppBar, Box, Grid, IconButton, Link, Tab, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Grid, IconButton, Link, Toolbar, Typography } from '@mui/material';
 
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import TimerIcon from '@mui/icons-material/Timer';
@@ -22,7 +22,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 export default function Act() {
     const [acts, setActs] = useState({
         daily_acts: [],
-        day_sum: [],
+        day_sum: null,
         monthly_acts: [],
         month_sum: []
     });
@@ -52,49 +52,63 @@ export default function Act() {
         }
     );
 
-    const daySum = acts.day_sum === null ? [] : acts.day_sum;
-    // Object.entries(daySum).find(([key, value]) => {
-    //     console.log(value);
-    // });
-    
-    // console.log({daySum.game_min})
+    const daySum: any = acts.day_sum != null ? acts.day_sum : [];
+    const DaySumTableRows =
+        <>
+            <TableRow>
+                <TableCell align="right" colSpan={2}>🎮</TableCell>
+                {daySum.length === 0 ?
+                    <TableCell></TableCell> :
+                    <TableCell align="right">{daySum.game_hour}h {daySum.game_min}m</TableCell>
+                }
+            </TableRow>
+            <TableRow>
+                <TableCell align="right" colSpan={2}>💻</TableCell>
+                {daySum.length === 0 ?
+                    <TableCell></TableCell> :
+                    <TableCell align="right">{daySum.pgm_hour}h {daySum.pgm_min}m</TableCell>
+                }
+            </TableRow>
+        </>;
 
-    // const DaySumTableRow = (daySum).map(
-    //     (detail: any) => {
-    //         return (
-    //             <TableRow>
-    //                 {/* <TableCell colSpan={2}>🎮</TableCell>
-    //                 <TableCell align="right"></TableCell> :
-    //                 <TableCell align="right">{detail.game_hour} h {detail.game_min} m</TableCell> */}
-    //                 <TableCell>🎮</TableCell>
-    //                 <TableCell>🎮</TableCell>
-    //                 <TableCell>🎮</TableCell>
-    //             </TableRow>
-    //         )
-    //     }
-    // );
-
-    // const monthlyActs = Array.isArray(acts.monthly_acts) ? acts.monthly_acts : [];
-    // const monthly = (monthlyActs).map(
-    //     (detail: any) => {
-    //         return (
-    //             <tr>
-    //                 {
-    //                     detail.act.type === 'Gaming' ?
-    //                         <td><SportsEsportsIcon /></td> :
-    //                         <td><GitHubIcon /></td>
-    //                 }
-    //                 <td>{detail.act.duration}</td>
-    //                 {
-    //                     detail.game.length === 1 ?
-    //                         <td>{detail.game[0].title}</td> :
-    //                         <td></td>
-    //                 }
-    //             </tr>
-    //         )
-    //     }
-    // );
-    // const monthSum = acts.month_sum != null ? acts.month_sum : [];
+    const monthlyActs = Array.isArray(acts.monthly_acts) ? acts.monthly_acts : [];
+    const MonthlyTableRows = (monthlyActs).map(
+        (detail: any) => {
+            return (
+                <TableRow key={detail.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                    {
+                        detail.act.type === 'Gaming' ?
+                            <TableCell component="th" scope="row"><SportsEsportsIcon /></TableCell> :
+                            <TableCell component="th" scope="row"><GitHubIcon /></TableCell>
+                    }
+                    <TableCell align="right">{detail.act.duration}</TableCell>
+                    {
+                        detail.game.length === 1 ?
+                            <TableCell align="right">{detail.game[0].title}</TableCell> :
+                            <TableCell align="right"></TableCell>
+                    }
+                </TableRow>
+            )
+        }
+    );
+    const monthSum: any = acts.month_sum != null ? acts.month_sum : [];
+    const MonthSumTableRows =
+        <>
+            <TableRow>
+                <TableCell align="right" colSpan={2}>🎮</TableCell>
+                {monthSum.length === 0 ?
+                    <TableCell></TableCell> :
+                    <TableCell align="right">{monthSum.game_hour}h {monthSum.game_min}m</TableCell>
+                }
+            </TableRow>
+            <TableRow>
+                <TableCell align="right" colSpan={2}>💻</TableCell>
+                {monthSum.length === 0 ?
+                    <TableCell></TableCell> :
+                    <TableCell align="right">{monthSum.pgm_hour}h {monthSum.pgm_min}m</TableCell>
+                }
+            </TableRow>
+        </>;
 
     return (
         <Grid container
@@ -157,22 +171,18 @@ export default function Act() {
                         </TableHead>
 
                         <TableBody>
-                            {DailyTableRows}
+                            <TableRow>
+                                <TableCell colSpan={3}>📆 Daily</TableCell>
+                            </TableRow>
+                            { DailyTableRows }
+                            { DaySumTableRows }
 
                             <TableRow>
-                                <TableCell colSpan={3}>📆Daily</TableCell>
+                                <TableCell colSpan={3}>📅 Monthly</TableCell>
                             </TableRow>
+                            { MonthlyTableRows }
+                            { MonthSumTableRows }
 
-                            {/* <TableRow>
-                                <TableCell colSpan={2}>🎮</TableCell>
-                                {
-                                    daySum.length === 0 ?
-                                        <TableCell></TableCell> :
-                                        <TableCell>{daySum}h ?m</TableCell>
-                                }
-                            </TableRow> */}
-
-                            {/* {DaySumTableRow} */}
                         </TableBody>
                     </Table>
                 </TableContainer>
