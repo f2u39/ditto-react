@@ -6,7 +6,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { AppBar, Box, Grid, IconButton, Link, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Divider, Grid, IconButton, Link, Toolbar, Typography } from '@mui/material';
 
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import TimerIcon from '@mui/icons-material/Timer';
@@ -35,17 +35,17 @@ export default function Act() {
     const DailyTableRows = (dailyActs).map(
         (detail: any) => {
             return (
-                <TableRow key={detail.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                <TableRow key={detail.id} sx={{ '&:last-child td, &:last-child th': { border: 0, fontSize: 15 } }}>
                     {
                         detail.act.type === 'Gaming' ?
-                            <TableCell component="th" scope="row"><SportsEsportsIcon /></TableCell> :
-                            <TableCell component="th" scope="row"><GitHubIcon /></TableCell>
+                            <TableCell align="center"><SportsEsportsIcon /></TableCell> :
+                            <TableCell align="center"><GitHubIcon /></TableCell>
                     }
-                    <TableCell align="right">{detail.act.duration}</TableCell>
+                    <TableCell align="center">{detail.act.duration}</TableCell>
                     {
                         detail.game.length === 1 ?
-                            <TableCell align="right">{detail.game[0].title}</TableCell> :
-                            <TableCell align="right"></TableCell>
+                            <TableCell align="left">{detail.game[0].title}</TableCell> :
+                            <TableCell></TableCell>
                     }
                 </TableRow>
             )
@@ -59,14 +59,14 @@ export default function Act() {
                 <TableCell align="right" colSpan={2}>🎮</TableCell>
                 {daySum.length === 0 ?
                     <TableCell></TableCell> :
-                    <TableCell align="right">{daySum.game_hour}h {daySum.game_min}m</TableCell>
+                    <TableCell align="left">{daySum.game_hour}h {daySum.game_min}m</TableCell>
                 }
             </TableRow>
             <TableRow>
                 <TableCell align="right" colSpan={2}>💻</TableCell>
                 {daySum.length === 0 ?
                     <TableCell></TableCell> :
-                    <TableCell align="right">{daySum.pgm_hour}h {daySum.pgm_min}m</TableCell>
+                    <TableCell align="left">{daySum.pgm_hour}h {daySum.pgm_min}m</TableCell>
                 }
             </TableRow>
         </>;
@@ -78,14 +78,14 @@ export default function Act() {
                 <TableRow key={detail.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                     {
                         detail.act.type === 'Gaming' ?
-                            <TableCell component="th" scope="row"><SportsEsportsIcon /></TableCell> :
-                            <TableCell component="th" scope="row"><GitHubIcon /></TableCell>
+                            <TableCell align="left"><SportsEsportsIcon /></TableCell> :
+                            <TableCell><GitHubIcon /></TableCell>
                     }
-                    <TableCell align="right">{detail.act.duration}</TableCell>
+                    <TableCell align="center">{detail.act.duration}</TableCell>
                     {
                         detail.game.length === 1 ?
-                            <TableCell align="right">{detail.game[0].title}</TableCell> :
-                            <TableCell align="right"></TableCell>
+                            <TableCell align="left">{detail.game[0].title}</TableCell> :
+                            <TableCell></TableCell>
                     }
                 </TableRow>
             )
@@ -98,14 +98,14 @@ export default function Act() {
                 <TableCell align="right" colSpan={2}>🎮</TableCell>
                 {monthSum.length === 0 ?
                     <TableCell></TableCell> :
-                    <TableCell align="right">{monthSum.game_hour}h {monthSum.game_min}m</TableCell>
+                    <TableCell align="left">{monthSum.game_hour}h {monthSum.game_min}m</TableCell>
                 }
             </TableRow>
             <TableRow>
                 <TableCell align="right" colSpan={2}>💻</TableCell>
                 {monthSum.length === 0 ?
                     <TableCell></TableCell> :
-                    <TableCell align="right">{monthSum.pgm_hour}h {monthSum.pgm_min}m</TableCell>
+                    <TableCell align="left">{monthSum.pgm_hour}h {monthSum.pgm_min}m</TableCell>
                 }
             </TableRow>
         </>;
@@ -161,12 +161,13 @@ export default function Act() {
                     </AppBar>
                 </Box>
                 <TableContainer>
-                    <Table sx={{ maxWidth: 500 }}>
+                    <Table sx={{ maxWidth: 500, borderRadis: '15px' }}>
                         <TableHead>
                             <TableRow>
-                                <TableCell><FormatListBulletedIcon /></TableCell>
-                                <TableCell align="right"><AccessTimeIcon /></TableCell>
-                                <TableCell align="right"><ReorderIcon /></TableCell>
+                                <TableCell align="center"><FormatListBulletedIcon /></TableCell>
+                                <TableCell align="center"><AccessTimeIcon /></TableCell>
+                                <TableCell></TableCell>
+                                {/* <TableCell align="right"><ReorderIcon /></TableCell> */}
                             </TableRow>
                         </TableHead>
 
@@ -174,14 +175,16 @@ export default function Act() {
                             <TableRow>
                                 <TableCell colSpan={3}>📆 Daily</TableCell>
                             </TableRow>
-                            { DailyTableRows }
-                            { DaySumTableRows }
+                            {DailyTableRows}
+                            {DaySumTableRows}
+
+                            <Divider variant="middle" />
 
                             <TableRow>
                                 <TableCell colSpan={3}>📅 Monthly</TableCell>
                             </TableRow>
-                            { MonthlyTableRows }
-                            { MonthSumTableRows }
+                            {MonthlyTableRows}
+                            {MonthSumTableRows}
 
                         </TableBody>
                     </Table>
