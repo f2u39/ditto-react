@@ -17,8 +17,9 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import TuneIcon from '@mui/icons-material/Tune';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import { Box, Button, ButtonGroup, FormControl, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { AccountCircle, Visibility, VisibilityOff } from '@mui/icons-material';
 
+import { Tablet, PcDisplay, NintendoSwitch, Playstation, Xbox } from 'react-bootstrap-icons';
 
 interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
@@ -35,8 +36,40 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
     }),
 }));
 
+interface State {
+    amount: string;
+    password: string;
+    weight: string;
+    weightRange: string;
+    showPassword: boolean;
+}
+
 export default function Game() {
     const [expanded, setExpanded] = React.useState(false);
+
+    const [values, setValues] = React.useState<State>({
+        amount: '',
+        password: '',
+        weight: '',
+        weightRange: '',
+        showPassword: false,
+    });
+
+    const handleChange =
+        (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+            setValues({ ...values, [prop]: event.target.value });
+        };
+
+    const handleClickShowPassword = () => {
+        setValues({
+            ...values,
+            showPassword: !values.showPassword,
+        });
+    };
+
+    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+    };
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -50,8 +83,8 @@ export default function Game() {
                 image="static/images/colors/purple.png"
             />
             <CardContent>
-                <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                    Cyberpunk 2077
+                <Typography variant="body2" color="text.secondary">
+                    <h4>Cyberpunk 2077</h4>
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
@@ -83,47 +116,20 @@ export default function Game() {
                             },
                         }}
                     >
-                        <ButtonGroup>
-                            <Left
-                                size="small"
-                                sx={{ width: '20%' }}
-                                disabled
-                            />
-
-                            <Right
-                                size="small"
-                                sx={{ width: '80%' }}
-                                disabled
-                            />
-                        </ButtonGroup>
-
-                        <ButtonGroup>
-                            <Left
-                                size="small"
-                                sx={{ width: '20%' }}
-                                disabled
-                            />
-
-                            <Right
-                                size="small"
-                                sx={{ width: '80%' }}
-                                disabled
-                            />
-                        </ButtonGroup>
-
-                        <ButtonGroup>
-                            <Left
-                                size="small"
-                                sx={{ width: '20%' }}
-                                disabled
-                            />
-
-                            <Right
-                                size="small"
-                                sx={{ width: '80%' }}
-                                disabled
-                            />
-                        </ButtonGroup>
+                        <TextField
+                            disabled
+                            inputProps={{
+                                style: { padding: '7px 5px', textAlign: 'right' },
+                            }}
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <Tablet  />
+                                    </InputAdornment>
+                                ),
+                            }}
+                            value="S"
+                        />
                     </Box>
                 </CardContent>
             </Collapse>
