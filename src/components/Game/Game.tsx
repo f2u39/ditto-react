@@ -16,7 +16,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import TuneIcon from '@mui/icons-material/Tune';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-import { Box, Button, ButtonGroup, TextField } from '@mui/material';
+import { Box, Button, ButtonGroup, FormControl, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -46,11 +47,11 @@ export default function Game() {
             <CardMedia
                 component="img"
                 height="300"
-                image="https://upload.wikimedia.org/wikipedia/en/9/9f/Cyberpunk_2077_box_art.jpg"
+                image="static/images/colors/purple.png"
             />
             <CardContent>
-                <Typography variant="body2" color="text.secondary">
-                    <h4>Cyberpunk 2077</h4>
+                <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+                    Cyberpunk 2077
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
@@ -82,17 +83,45 @@ export default function Game() {
                             },
                         }}
                     >
-                        {/* <ButtonGroup size="small" aria-label="small button group">
-        <Button key="one">One</Button>
-      <TextField size="small" />
-      </ButtonGroup> */}
-
-                        <ButtonGroup size="small">
+                        <ButtonGroup>
                             <Left
+                                size="small"
+                                sx={{ width: '20%' }}
                                 disabled
                             />
 
                             <Right
+                                size="small"
+                                sx={{ width: '80%' }}
+                                disabled
+                            />
+                        </ButtonGroup>
+
+                        <ButtonGroup>
+                            <Left
+                                size="small"
+                                sx={{ width: '20%' }}
+                                disabled
+                            />
+
+                            <Right
+                                size="small"
+                                sx={{ width: '80%' }}
+                                disabled
+                            />
+                        </ButtonGroup>
+
+                        <ButtonGroup>
+                            <Left
+                                size="small"
+                                sx={{ width: '20%' }}
+                                disabled
+                            />
+
+                            <Right
+                                size="small"
+                                sx={{ width: '80%' }}
+                                disabled
                             />
                         </ButtonGroup>
                     </Box>
