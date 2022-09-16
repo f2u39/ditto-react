@@ -111,13 +111,14 @@ export default function Act() {
         </>;
 
     return (
-        <Grid container
+        <Grid
+            container
             direction="column"
             display="flex"
             justifyContent="center"
             alignItems="center"
         >
-            <Grid item xs={8}>
+            <Grid item xs={8} sx={{ pt: 5 }}>
                 <Box sx={{ flexGrow: 1 }}>
                     <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none' }}>
                         <Toolbar>
@@ -160,33 +161,39 @@ export default function Act() {
                         </Toolbar>
                     </AppBar>
                 </Box>
-                <TableContainer>
-                    <Table sx={{ maxWidth: 500, borderRadis: '15px' }}>
+                <TableContainer sx={{ borderRadius: 1, border: 2 }}>
+                    <Table
+                        style={{ width: 800 }}
+                    >
                         <TableHead>
-                            <TableRow>
+                            {/* <TableRow>
                                 <TableCell align="center"><FormatListBulletedIcon /></TableCell>
                                 <TableCell align="center"><AccessTimeIcon /></TableCell>
                                 <TableCell></TableCell>
-                                {/* <TableCell align="right"><ReorderIcon /></TableCell> */}
+                            </TableRow> */}
+
+                            <TableRow>
+                                <TableCell colSpan={3}>📆 Daily</TableCell>
                             </TableRow>
                         </TableHead>
 
                         <TableBody>
-                            <TableRow>
-                                <TableCell colSpan={3}>📆 Daily</TableCell>
-                            </TableRow>
                             {DailyTableRows}
                             {DaySumTableRows}
+                        </TableBody>
 
-                            <Divider variant="middle" />
-
+                        <TableHead sx={{ borderRadius: 1, borderTop: 2 }}>
                             <TableRow>
                                 <TableCell colSpan={3}>📅 Monthly</TableCell>
                             </TableRow>
+                        </TableHead>
+
+                        <TableBody>
                             {MonthlyTableRows}
                             {MonthSumTableRows}
-
                         </TableBody>
+
+
                     </Table>
                 </TableContainer>
             </Grid>
