@@ -38,56 +38,159 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
     }),
 }));
 
-interface State {
-    amount: string;
-    password: string;
-    weight: string;
-    weightRange: string;
-    showPassword: boolean;
-}
-
 export default function Game() {
     const [expanded, setExpanded] = React.useState(false);
+    const [expandedId, setExpandedId] = React.useState(-1)
 
-    const [values, setValues] = React.useState<State>({
-        amount: '',
-        password: '',
-        weight: '',
-        weightRange: '',
-        showPassword: false,
-    });
+    const cardIds = [{ _id: "1" }, { _id: "2" }, { _id: "3" }];
 
-    const handleChange =
-        (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
-            setValues({ ...values, [prop]: event.target.value });
-        };
-
-    const handleClickShowPassword = () => {
-        setValues({
-            ...values,
-            showPassword: !values.showPassword,
-        });
-    };
-
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-    };
-
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-    };
+    const handleExpandClick = (i: number) => {
+        setExpandedId(expandedId === i ? -1 : i);
+    }
 
     return (
-        <Grid container
-            direction="column"
+        <Grid 
+            container
+            spacing={2}
             display="flex"
             justifyContent="center"
-            alignItems="center"
+            // alignItems="center"
+            sx={{ pt: 5 }}
         >
-            <Grid item xs={8}>
-                <Box sx={{ flexGrow: 1 }}>
-                    <Card sx={{ maxWidth: 300 }}>
-                        <CardMedia
+            {cardIds.map((itinerary, i) => (
+                <Grid item xs={3}>
+                <Card sx={{ maxWidth: 300 }} key={itinerary._id}>
+                             <CardMedia
+                                component="img"
+                                height="300"
+                                image="static/images/colors/lavender.png"
+                            />
+                            <CardContent>
+                                <Typography variant="body2" color="text.secondary">
+                                    <h4>Cyberpunk 2077</h4>
+                                </Typography>
+                            </CardContent>
+                            <CardActions disableSpacing>
+                                <IconButton>
+                                    <TuneIcon />
+                                </IconButton>
+    
+                                <IconButton>
+                                    <PlayCircleOutlineIcon />
+                                </IconButton>
+                                <ExpandMore
+                                    expand={expanded}
+                                    onClick={() => handleExpandClick(i)}
+                                    aria-expanded={expandedId === i}
+                                    aria-label="show more"
+                                >
+                                    <ExpandMoreIcon />
+                                </ExpandMore>
+                            </CardActions>
+                            <Collapse in={expandedId === i} timeout="auto" unmountOnExit>
+                                <CardContent>
+                                    <Box
+                                        sx={{
+                                            mx: "auto",
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            alignItems: 'center',
+                                            '& > *': {
+                                                m: 1,
+                                            },
+                                        }}
+                                    >
+                                        <TextField
+                                            disabled
+                                            inputProps={{
+                                                style: { padding: '7px 5px', textAlign: 'right' },
+                                            }}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        <Tablet />
+                                                    </InputAdornment>
+                                                ),
+                                                endAdornment: (
+                                                    <InputAdornment position="start">
+                                                        S
+                                                    </InputAdornment>
+                                                )
+                                            }}
+                                        />
+    
+                                        <TextField
+                                            disabled
+                                            sx={{ pt: 1 }}
+                                            inputProps={{
+                                                style: { padding: '7px 5px', textAlign: 'right' },
+                                            }}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        <Code />
+                                                    </InputAdornment>
+                                                ),
+                                                endAdornment: (
+                                                    <InputAdornment position="start">
+                                                        CD Projekt Red
+                                                    </InputAdornment>
+                                                )
+                                            }}
+                                        />
+    
+                                        <TextField
+                                            disabled
+                                            sx={{ pt: 1 }}
+                                            inputProps={{
+                                                style: { padding: '7px 5px', textAlign: 'right' },
+                                            }}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        <CodeSlash />
+                                                    </InputAdornment>
+                                                ),
+                                                endAdornment: (
+                                                    <InputAdornment position="start">
+                                                        CD Projekt
+                                                    </InputAdornment>
+                                                )
+                                            }}
+                                        />
+    
+                                        <TextField
+                                            disabled
+                                            sx={{ pt: 1 }}
+                                            inputProps={{
+                                                style: { padding: '7px 5px', textAlign: 'right' },
+                                            }}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        <BatteryCharging />
+                                                    </InputAdornment>
+                                                ),
+                                                endAdornment: (
+                                                    <InputAdornment position="start">
+                                                        5 hours
+                                                    </InputAdornment>
+                                                )
+                                            }}
+                                        />
+                                    </Box>
+    
+    
+                                </CardContent>
+                            </Collapse>
+                        </Card>
+                </Grid>
+            ))}
+
+
+            {/* <Grid item xs={3}>
+            <Card sx={{ maxWidth: 300 }}>
+                         <CardMedia
                             component="img"
                             height="300"
                             image="static/images/colors/purple.png"
@@ -107,7 +210,7 @@ export default function Game() {
                             </IconButton>
                             <ExpandMore
                                 expand={expanded}
-                                onClick={handleExpandClick}
+                                onClick={handleExpandClick0}
                                 aria-expanded={expanded}
                                 aria-label="show more"
                             >
@@ -208,132 +311,393 @@ export default function Game() {
                             </CardContent>
                         </Collapse>
                     </Card>
-
-                    <Card sx={{ maxWidth: 300 }}>
-                        <CardMedia
-                            component="img"
-                            height="300"
-                            image="static/images/colors/purple.png"
-                        />
-                        <CardContent>
-                            <Typography variant="body2" color="text.secondary">
-                                <h4>Cyberpunk 2077</h4>
-                            </Typography>
-                        </CardContent>
-                        <CardActions disableSpacing>
-                            <IconButton>
-                                <TuneIcon />
-                            </IconButton>
-
-                            <IconButton>
-                                <PlayCircleOutlineIcon />
-                            </IconButton>
-                            <ExpandMore
-                                expand={expanded}
-                                onClick={handleExpandClick}
-                                aria-expanded={expanded}
-                                aria-label="show more"
-                            >
-                                <ExpandMoreIcon />
-                            </ExpandMore>
-                        </CardActions>
-                        <Collapse in={expanded} timeout="auto" unmountOnExit>
-                            <CardContent>
-                                <Box
-                                    sx={{
-                                        mx: "auto",
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        alignItems: 'center',
-                                        '& > *': {
-                                            m: 1,
-                                        },
-                                    }}
-                                >
-                                    <TextField
-                                        disabled
-                                        inputProps={{
-                                            style: { padding: '7px 5px', textAlign: 'right' },
-                                        }}
-                                        InputProps={{
-                                            startAdornment: (
-                                                <InputAdornment position="start">
-                                                    <Tablet />
-                                                </InputAdornment>
-                                            ),
-                                            endAdornment: (
-                                                <InputAdornment position="start">
-                                                    S
-                                                </InputAdornment>
-                                            )
-                                        }}
-                                    />
-
-                                    <TextField
-                                        disabled
-                                        inputProps={{
-                                            style: { padding: '7px 5px', textAlign: 'right' },
-                                        }}
-                                        InputProps={{
-                                            startAdornment: (
-                                                <InputAdornment position="start">
-                                                    <Code />
-                                                </InputAdornment>
-                                            ),
-                                            endAdornment: (
-                                                <InputAdornment position="start">
-                                                    CD Projekt Red
-                                                </InputAdornment>
-                                            )
-                                        }}
-                                    />
-
-                                    <TextField
-                                        disabled
-                                        inputProps={{
-                                            style: { padding: '7px 5px', textAlign: 'right' },
-                                        }}
-                                        InputProps={{
-                                            startAdornment: (
-                                                <InputAdornment position="start">
-                                                    <CodeSlash />
-                                                </InputAdornment>
-                                            ),
-                                            endAdornment: (
-                                                <InputAdornment position="start">
-                                                    CD Projekt
-                                                </InputAdornment>
-                                            )
-                                        }}
-                                    />
-
-                                    <TextField
-                                        disabled
-                                        inputProps={{
-                                            style: { padding: '7px 5px', textAlign: 'right' },
-                                        }}
-                                        InputProps={{
-                                            startAdornment: (
-                                                <InputAdornment position="start">
-                                                    <BatteryCharging />
-                                                </InputAdornment>
-                                            ),
-                                            endAdornment: (
-                                                <InputAdornment position="start">
-                                                    5 hours
-                                                </InputAdornment>
-                                            )
-                                        }}
-                                    />
-                                </Box>
-
-
-                            </CardContent>
-                        </Collapse>
-                    </Card>
-                </Box>
             </Grid>
+
+            <Grid item xs={3}>
+            <Card sx={{ maxWidth: 300 }}>
+                         <CardMedia
+                            component="img"
+                            height="300"
+                            image="static/images/colors/pink.png"
+                        />
+                        <CardContent>
+                            <Typography variant="body2" color="text.secondary">
+                                <h4>Cyberpunk 2077</h4>
+                            </Typography>
+                        </CardContent>
+                        <CardActions disableSpacing>
+                            <IconButton>
+                                <TuneIcon />
+                            </IconButton>
+
+                            <IconButton>
+                                <PlayCircleOutlineIcon />
+                            </IconButton>
+                            <ExpandMore
+                                expand={expanded}
+                                onClick={handleExpandClick0}
+                                aria-expanded={expanded}
+                                aria-label="show more"
+                            >
+                                <ExpandMoreIcon />
+                            </ExpandMore>
+                        </CardActions>
+                        <Collapse in={expanded} timeout="auto" unmountOnExit>
+                            <CardContent>
+                                <Box
+                                    sx={{
+                                        mx: "auto",
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'center',
+                                        '& > *': {
+                                            m: 1,
+                                        },
+                                    }}
+                                >
+                                    <TextField
+                                        disabled
+                                        inputProps={{
+                                            style: { padding: '7px 5px', textAlign: 'right' },
+                                        }}
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <Tablet />
+                                                </InputAdornment>
+                                            ),
+                                            endAdornment: (
+                                                <InputAdornment position="start">
+                                                    S
+                                                </InputAdornment>
+                                            )
+                                        }}
+                                    />
+
+                                    <TextField
+                                        disabled
+                                        inputProps={{
+                                            style: { padding: '7px 5px', textAlign: 'right' },
+                                        }}
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <Code />
+                                                </InputAdornment>
+                                            ),
+                                            endAdornment: (
+                                                <InputAdornment position="start">
+                                                    CD Projekt Red
+                                                </InputAdornment>
+                                            )
+                                        }}
+                                    />
+
+                                    <TextField
+                                        disabled
+                                        inputProps={{
+                                            style: { padding: '7px 5px', textAlign: 'right' },
+                                        }}
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <CodeSlash />
+                                                </InputAdornment>
+                                            ),
+                                            endAdornment: (
+                                                <InputAdornment position="start">
+                                                    CD Projekt
+                                                </InputAdornment>
+                                            )
+                                        }}
+                                    />
+
+                                    <TextField
+                                        disabled
+                                        inputProps={{
+                                            style: { padding: '7px 5px', textAlign: 'right' },
+                                        }}
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <BatteryCharging />
+                                                </InputAdornment>
+                                            ),
+                                            endAdornment: (
+                                                <InputAdornment position="start">
+                                                    5 hours
+                                                </InputAdornment>
+                                            )
+                                        }}
+                                    />
+                                </Box>
+
+
+                            </CardContent>
+                        </Collapse>
+                    </Card>
+            </Grid> */}
         </Grid>
+
+        // <Grid container
+        //     direction="column"
+        //     display="flex"
+        //     justifyContent="center"
+        //     alignItems="center"
+        // >
+        //     <Grid item xs={10}>
+        //         <Grid item xs={3}>
+        //         <Card sx={{ maxWidth: 300 }}>
+        //                 <CardMedia
+        //                     component="img"
+        //                     height="300"
+        //                     image="static/images/colors/purple.png"
+        //                 />
+        //                 <CardContent>
+        //                     <Typography variant="body2" color="text.secondary">
+        //                         <h4>Cyberpunk 2077</h4>
+        //                     </Typography>
+        //                 </CardContent>
+        //                 <CardActions disableSpacing>
+        //                     <IconButton>
+        //                         <TuneIcon />
+        //                     </IconButton>
+
+        //                     <IconButton>
+        //                         <PlayCircleOutlineIcon />
+        //                     </IconButton>
+        //                     <ExpandMore
+        //                         expand={expanded}
+        //                         onClick={handleExpandClick}
+        //                         aria-expanded={expanded}
+        //                         aria-label="show more"
+        //                     >
+        //                         <ExpandMoreIcon />
+        //                     </ExpandMore>
+        //                 </CardActions>
+        //                 <Collapse in={expanded} timeout="auto" unmountOnExit>
+        //                     <CardContent>
+        //                         <Box
+        //                             sx={{
+        //                                 mx: "auto",
+        //                                 display: 'flex',
+        //                                 flexDirection: 'column',
+        //                                 alignItems: 'center',
+        //                                 '& > *': {
+        //                                     m: 1,
+        //                                 },
+        //                             }}
+        //                         >
+        //                             <TextField
+        //                                 disabled
+        //                                 inputProps={{
+        //                                     style: { padding: '7px 5px', textAlign: 'right' },
+        //                                 }}
+        //                                 InputProps={{
+        //                                     startAdornment: (
+        //                                         <InputAdornment position="start">
+        //                                             <Tablet />
+        //                                         </InputAdornment>
+        //                                     ),
+        //                                     endAdornment: (
+        //                                         <InputAdornment position="start">
+        //                                             S
+        //                                         </InputAdornment>
+        //                                     )
+        //                                 }}
+        //                             />
+
+        //                             <TextField
+        //                                 disabled
+        //                                 inputProps={{
+        //                                     style: { padding: '7px 5px', textAlign: 'right' },
+        //                                 }}
+        //                                 InputProps={{
+        //                                     startAdornment: (
+        //                                         <InputAdornment position="start">
+        //                                             <Code />
+        //                                         </InputAdornment>
+        //                                     ),
+        //                                     endAdornment: (
+        //                                         <InputAdornment position="start">
+        //                                             CD Projekt Red
+        //                                         </InputAdornment>
+        //                                     )
+        //                                 }}
+        //                             />
+
+        //                             <TextField
+        //                                 disabled
+        //                                 inputProps={{
+        //                                     style: { padding: '7px 5px', textAlign: 'right' },
+        //                                 }}
+        //                                 InputProps={{
+        //                                     startAdornment: (
+        //                                         <InputAdornment position="start">
+        //                                             <CodeSlash />
+        //                                         </InputAdornment>
+        //                                     ),
+        //                                     endAdornment: (
+        //                                         <InputAdornment position="start">
+        //                                             CD Projekt
+        //                                         </InputAdornment>
+        //                                     )
+        //                                 }}
+        //                             />
+
+        //                             <TextField
+        //                                 disabled
+        //                                 inputProps={{
+        //                                     style: { padding: '7px 5px', textAlign: 'right' },
+        //                                 }}
+        //                                 InputProps={{
+        //                                     startAdornment: (
+        //                                         <InputAdornment position="start">
+        //                                             <BatteryCharging />
+        //                                         </InputAdornment>
+        //                                     ),
+        //                                     endAdornment: (
+        //                                         <InputAdornment position="start">
+        //                                             5 hours
+        //                                         </InputAdornment>
+        //                                     )
+        //                                 }}
+        //                             />
+        //                         </Box>
+
+
+        //                     </CardContent>
+        //                 </Collapse>
+        //             </Card>
+        //         </Grid>
+                    
+
+        //         <Grid item xs={3}>
+        //         <Card sx={{ maxWidth: 300 }}>
+        //                 <CardMedia
+        //                     component="img"
+        //                     height="300"
+        //                     image="static/images/colors/purple.png"
+        //                 />
+        //                 <CardContent>
+        //                     <Typography variant="body2" color="text.secondary">
+        //                         <h4>Cyberpunk 2077</h4>
+        //                     </Typography>
+        //                 </CardContent>
+        //                 <CardActions disableSpacing>
+        //                     <IconButton>
+        //                         <TuneIcon />
+        //                     </IconButton>
+
+        //                     <IconButton>
+        //                         <PlayCircleOutlineIcon />
+        //                     </IconButton>
+        //                     <ExpandMore
+        //                         expand={expanded}
+        //                         onClick={handleExpandClick}
+        //                         aria-expanded={expanded}
+        //                         aria-label="show more"
+        //                     >
+        //                         <ExpandMoreIcon />
+        //                     </ExpandMore>
+        //                 </CardActions>
+        //                 <Collapse in={expanded} timeout="auto" unmountOnExit>
+        //                     <CardContent>
+        //                         <Box
+        //                             sx={{
+        //                                 mx: "auto",
+        //                                 display: 'flex',
+        //                                 flexDirection: 'column',
+        //                                 alignItems: 'center',
+        //                                 '& > *': {
+        //                                     m: 1,
+        //                                 },
+        //                             }}
+        //                         >
+        //                             <TextField
+        //                                 disabled
+        //                                 inputProps={{
+        //                                     style: { padding: '7px 5px', textAlign: 'right' },
+        //                                 }}
+        //                                 InputProps={{
+        //                                     startAdornment: (
+        //                                         <InputAdornment position="start">
+        //                                             <Tablet />
+        //                                         </InputAdornment>
+        //                                     ),
+        //                                     endAdornment: (
+        //                                         <InputAdornment position="start">
+        //                                             S
+        //                                         </InputAdornment>
+        //                                     )
+        //                                 }}
+        //                             />
+
+        //                             <TextField
+        //                                 disabled
+        //                                 inputProps={{
+        //                                     style: { padding: '7px 5px', textAlign: 'right' },
+        //                                 }}
+        //                                 InputProps={{
+        //                                     startAdornment: (
+        //                                         <InputAdornment position="start">
+        //                                             <Code />
+        //                                         </InputAdornment>
+        //                                     ),
+        //                                     endAdornment: (
+        //                                         <InputAdornment position="start">
+        //                                             CD Projekt Red
+        //                                         </InputAdornment>
+        //                                     )
+        //                                 }}
+        //                             />
+
+        //                             <TextField
+        //                                 disabled
+        //                                 inputProps={{
+        //                                     style: { padding: '7px 5px', textAlign: 'right' },
+        //                                 }}
+        //                                 InputProps={{
+        //                                     startAdornment: (
+        //                                         <InputAdornment position="start">
+        //                                             <CodeSlash />
+        //                                         </InputAdornment>
+        //                                     ),
+        //                                     endAdornment: (
+        //                                         <InputAdornment position="start">
+        //                                             CD Projekt
+        //                                         </InputAdornment>
+        //                                     )
+        //                                 }}
+        //                             />
+
+        //                             <TextField
+        //                                 disabled
+        //                                 inputProps={{
+        //                                     style: { padding: '7px 5px', textAlign: 'right' },
+        //                                 }}
+        //                                 InputProps={{
+        //                                     startAdornment: (
+        //                                         <InputAdornment position="start">
+        //                                             <BatteryCharging />
+        //                                         </InputAdornment>
+        //                                     ),
+        //                                     endAdornment: (
+        //                                         <InputAdornment position="start">
+        //                                             5 hours
+        //                                         </InputAdornment>
+        //                                     )
+        //                                 }}
+        //                             />
+        //                         </Box>
+
+
+        //                     </CardContent>
+        //                 </Collapse>
+        //             </Card>
+        //         </Grid>
+        //     </Grid>
+        // </Grid>
 
     );
 }
