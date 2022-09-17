@@ -12,11 +12,13 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TuneIcon from '@mui/icons-material/Tune';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import { Box, FormControl, Grid, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 import { Tablet, PcDisplay, NintendoSwitch, Playstation, Xbox } from 'react-bootstrap-icons';
 import { Code, CodeSlash } from 'react-bootstrap-icons';
 import { Battery, BatteryCharging, BatteryFull, BatteryHalf } from 'react-bootstrap-icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface Detail {
     game: Game,
@@ -64,12 +66,14 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }));
 
 export default function Game() {
-    const [details, setDetails] = useState<Detail[]>([])
+    const [details, setDetails] = useState<Detail[]>([]);
+    const [curPage, setCurPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
 
-    const [expanded, setExpanded] = React.useState(false);
-    const [expandedId, setExpandedId] = React.useState(-1)
+    const [expanded, setExpanded] = useState(false);
+    const [expandedId, setExpandedId] = useState(-1)
 
-    React.useEffect(() => {
+    useEffect(() => {
         fetchDetails();
     }, []);
 
@@ -85,7 +89,6 @@ export default function Game() {
             justifyContent="center"
             // alignItems="center"
             xs={12}
-            sx={{ border: 2 }}
         >
             {details.map((element, i) => (
                 <Grid item xs={4}>
@@ -94,6 +97,7 @@ export default function Game() {
                             component="img"
                             height="300"
                             image="static/images/colors/lavender.png"
+                            // /assets/img/games/xxx.webp
                         />
                         <CardContent>
                             <Typography variant="body2" color="text.secondary">
@@ -214,17 +218,31 @@ export default function Game() {
                     </Card>
                 </Grid>
             ))}
+
+            <Stack spacing={2}>
+                <Pagination
+                    count={totalPages} 
+                    defaultPage={curPage}
+                    onChange={(e, value) => changePage(value)}
+                    variant="outlined"
+                    color="secondary" />
+            </Stack>
         </Grid>
     );
 
     async function fetchDetails() {
         try {
-            let resp = await fetch('/api/game/status/Played/1');
+            let resp = await fetch('/api/game/status/Played/'+curPage);
             let json = await resp.json();
-            console.log(json);
-            setDetails(json);
+            setDetails(json["details"]);
+            setTotalPages(json["total_pages"])
         } catch (error) {
             console.log(error);
         }
+    }
+
+    async function changePage(page: number) {
+        setCurPage(page);
+        fetchDetails();
     }
 }
