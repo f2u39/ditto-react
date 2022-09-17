@@ -117,8 +117,9 @@ export default function Act() {
             display="flex"
             justifyContent="center"
             alignItems="center"
+            sx={{ pt: 5 }}
         >
-            <Grid item xs={8} sx={{ pt: 5 }}>
+            <Grid item xs={8}>
                 <Box sx={{ flexGrow: 1 }}>
                     <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none' }}>
                         <Toolbar>
