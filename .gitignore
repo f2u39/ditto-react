@@ -1,3 +1,5 @@
+*.webp
+
 # dependencies
 /node_modules
 /.pnp

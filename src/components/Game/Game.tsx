@@ -67,19 +67,32 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 export default function Game() {
     const [details, setDetails] = useState<Detail[]>([]);
-    const [curPage, setCurPage] = useState(1);
+    const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 
     const [expanded, setExpanded] = useState(false);
     const [expandedId, setExpandedId] = useState(-1)
 
     useEffect(() => {
-        fetchDetails();
-    }, []);
+        // fetchDetails();
+  
+        fetch(`/api/game/status/Played/${page}`)
+            .then(response => response.json())
+            .then(data => {
+                setDetails(data["details"])
+                setTotalPages(data["total_pages"])
+            })
+    }, [page]);
 
     const handleExpandClick = (i: number) => {
         setExpandedId(expandedId === i ? -1 : i);
     }
+
+    const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        setPage(value);
+        console.log(page);
+        // fetchDetails();
+    };
 
     return (
         <Grid
@@ -96,7 +109,7 @@ export default function Game() {
                         <CardMedia
                             component="img"
                             height="300"
-                            image="static/images/colors/lavender.png"
+                            image={"static/images/games/"+element.game.id+".webp"}
                             // /assets/img/games/xxx.webp
                         />
                         <CardContent>
@@ -221,9 +234,10 @@ export default function Game() {
 
             <Stack spacing={2}>
                 <Pagination
+                    sx={{ pt: 3 , pb: 3 }}
                     count={totalPages} 
-                    defaultPage={curPage}
-                    onChange={(e, value) => changePage(value)}
+                    page={page}
+                    onChange={handlePageChange}
                     variant="outlined"
                     color="secondary" />
             </Stack>
@@ -232,7 +246,8 @@ export default function Game() {
 
     async function fetchDetails() {
         try {
-            let resp = await fetch('/api/game/status/Played/'+curPage);
+            let url = `/api/game/status/Played/${page}`
+            let resp = await fetch(url);
             let json = await resp.json();
             setDetails(json["details"]);
             setTotalPages(json["total_pages"])
@@ -240,9 +255,5 @@ export default function Game() {
             console.log(error);
         }
     }
-
-    async function changePage(page: number) {
-        setCurPage(page);
-        fetchDetails();
-    }
 }
+
