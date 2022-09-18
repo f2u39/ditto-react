@@ -113,11 +113,11 @@ export default function Act() {
     return (
         <Grid
             container
-            direction="column"
             display="flex"
             justifyContent="center"
             alignItems="center"
             sx={{ pt: 5 }}
+            xs={12}
         >
             <Grid item xs={8}>
                 <Box sx={{ flexGrow: 1 }}>
@@ -132,7 +132,7 @@ export default function Act() {
                                     aria-haspopup="true"
                                     color="inherit"
                                 >
-                                    <PostAddIcon sx={{ fontSize: 30, color: "lavender" }} />
+                                    <PostAddIcon sx={{ fontSize: 30, color: "#F8C8DC" }} />
                                 </IconButton>
                             </Link>
 
@@ -143,7 +143,7 @@ export default function Act() {
                                     aria-haspopup="true"
                                     color="inherit"
                                 >
-                                    <TimerIcon sx={{ fontSize: 30, color: "lavender" }} />
+                                    <TimerIcon sx={{ fontSize: 30, color: "#F8C8DC" }} />
                                 </IconButton>
                             </Link>
 
@@ -154,7 +154,7 @@ export default function Act() {
                                     aria-haspopup="true"
                                     color="inherit"
                                 >
-                                    <CalendarMonthIcon sx={{ fontSize: 30, color: "lavender" }} />
+                                    <CalendarMonthIcon sx={{ fontSize: 30, color: "#F8C8DC" }} />
                                 </IconButton>
                             </Link>
 
@@ -163,9 +163,7 @@ export default function Act() {
                     </AppBar>
                 </Box>
                 <TableContainer sx={{ borderRadius: 1, border: 2 }}>
-                    <Table
-                        style={{ width: 800 }}
-                    >
+                    <Table>
                         <TableHead>
                             {/* <TableRow>
                                 <TableCell align="center"><FormatListBulletedIcon /></TableCell>

@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TuneIcon from '@mui/icons-material/Tune';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-import { Box, FormControl, Grid, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material';
+import { AppBar, Box, FormControl, Grid, InputAdornment, InputLabel, Link, OutlinedInput, Paper, TextField, Toolbar } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
@@ -19,6 +19,17 @@ import { Tablet, PcDisplay, NintendoSwitch, Playstation, Xbox } from 'react-boot
 import { Code, CodeSlash } from 'react-bootstrap-icons';
 import { Battery, BatteryCharging, BatteryFull, BatteryHalf } from 'react-bootstrap-icons';
 import { useEffect, useState } from 'react';
+
+import PostAddIcon from '@mui/icons-material/PostAdd';
+import TimerIcon from '@mui/icons-material/Timer';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import ReorderIcon from '@mui/icons-material/Reorder';
+
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 interface Detail {
     game: Game,
@@ -75,7 +86,7 @@ export default function Game() {
 
     useEffect(() => {
         // fetchDetails();
-  
+
         fetch(`/api/game/status/Played/${page}`)
             .then(response => response.json())
             .then(data => {
@@ -94,23 +105,70 @@ export default function Game() {
         // fetchDetails();
     };
 
+    const CenterStack = styled(Stack)(() => ({
+        textAlign: 'center',
+    }));
+
     return (
         <Grid
             container
             spacing={2}
-            // direction="column"
             justifyContent="center"
-            // alignItems="center"
+            sx={{ flexGrow: 1 }}
             xs={12}
         >
+            <Grid sx={{ flexGrow: 1 }} xs={12}>
+                    <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none' }}>
+                        <Toolbar>
+                            <Typography sx={{ flexGrow: 1 }} />
+
+                            <Link href="/game">
+                                <IconButton
+                                    size="large"
+                                    aria-controls="menu-appbar"
+                                    aria-haspopup="true"
+                                    color="inherit"
+                                >
+                                    <BatteryFull color="grey" />
+                                </IconButton>
+                            </Link>
+
+                            <Link href="/word">
+                                <IconButton
+                                    size="large"
+                                    aria-controls="menu-appbar"
+                                    aria-haspopup="true"
+                                    color="inherit"
+                                >
+                                    <BatteryCharging color="green" />
+                                </IconButton>
+                            </Link>
+
+                            <Link href="/act">
+                                <IconButton
+                                    size="large"
+                                    aria-controls="menu-appbar"
+                                    aria-haspopup="true"
+                                    color="inherit"
+                                >
+                                    <Battery color="red" />
+                                </IconButton>
+                            </Link>
+
+                            <Typography sx={{ flexGrow: 1 }} />
+                        </Toolbar>
+                    </AppBar>
+                </Grid>
+
+            {/* <Grid item xs={12}> */}
             {details.map((element, i) => (
-                <Grid item xs={4}>
+                <Grid item>
                     <Card sx={{ maxWidth: 300 }} key={element.game.id}>
                         <CardMedia
                             component="img"
                             height="300"
-                            image={"static/images/games/"+element.game.id+".webp"}
-                            // /assets/img/games/xxx.webp
+                            image={"static/images/games/" + element.game.id + ".webp"}
+                        // /assets/img/games/xxx.webp
                         />
                         <CardContent>
                             <Typography variant="body2" color="text.secondary">
@@ -137,14 +195,14 @@ export default function Game() {
                         <Collapse in={expandedId === i} timeout="auto" unmountOnExit>
                             <CardContent>
                                 <Box sx={{
-                                        mx: "auto",
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        alignItems: 'center',
-                                        '& > *': {
-                                            m: 1,
-                                        },
-                                    }}
+                                    mx: "auto",
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    '& > *': {
+                                        m: 1,
+                                    },
+                                }}
                                 >
                                     <TextField
                                         disabled
@@ -154,13 +212,16 @@ export default function Game() {
                                         InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
-                                                    {/* { element.game.platform } */}
-                                                    <Tablet />
+                                                    { element.game.platform === 'Mobile' ? <Tablet /> : <></>}
+                                                    { element.game.platform === 'PC' ? <PcDisplay /> : <></>}
+                                                    { element.game.platform === 'Playstation' ? <Playstation /> : <></>}
+                                                    { element.game.platform === 'Nintendo Switch' ? <NintendoSwitch /> : <></>}
+                                                    { element.game.platform === 'Xbox' ? <Xbox /> : <></>}
                                                 </InputAdornment>
                                             ),
                                             endAdornment: (
                                                 <InputAdornment position="end">
-                                                    { element.game.rating }
+                                                    {element.game.rating}
                                                 </InputAdornment>
                                             )
                                         }}
@@ -180,7 +241,7 @@ export default function Game() {
                                             ),
                                             endAdornment: (
                                                 <InputAdornment position="end">
-                                                    { element.developer.name }
+                                                    {element.developer.name}
                                                 </InputAdornment>
                                             )
                                         }}
@@ -200,7 +261,7 @@ export default function Game() {
                                             ),
                                             endAdornment: (
                                                 <InputAdornment position="end">
-                                                    { element.publisher.name }
+                                                    {element.publisher.name}
                                                 </InputAdornment>
                                             )
                                         }}
@@ -220,7 +281,7 @@ export default function Game() {
                                             ),
                                             endAdornment: (
                                                 <InputAdornment position="end">
-                                                    { element.play_hour }h
+                                                    {element.play_hour}h
                                                 </InputAdornment>
                                             )
                                         }}
@@ -230,17 +291,26 @@ export default function Game() {
                         </Collapse>
                     </Card>
                 </Grid>
-            ))}
+            ))
+            }
+            {/* </Grid> */}
 
-            <Stack spacing={2}>
-                <Pagination
-                    sx={{ pt: 3 , pb: 3 }}
-                    count={totalPages} 
-                    page={page}
-                    onChange={handlePageChange}
-                    variant="outlined"
-                    color="secondary" />
-            </Stack>
+            <Grid
+                xs={12}
+                sx={{ pt: 3, pb: 3 }}>
+                <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                >
+                    <Pagination
+                        count={totalPages}
+                        page={page}
+                        onChange={handlePageChange}
+                        variant="outlined"
+                        color="secondary" />
+                </Box>
+            </Grid>
         </Grid>
     );
 
