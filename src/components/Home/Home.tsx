@@ -1,24 +1,23 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import Timer from "./Timer";
-import Button from "./Button";
 import { useEffect, useState } from "react";
 
 export default function Home() {
     const [time, setTime] = useState(0)
-    const [start, setStart] = useState(false)
 
     useEffect(() => {
-        let interval = null;
-
-        interval = setInterval(() => {
+        const interval = window.setInterval(() => {
             setTime(prevTime => prevTime + 10)
         }, 10)
-
         return () => clearInterval(interval)
     }, [])
 
     return (
-        <>{time}</>
+        <>
+            {("0" + Math.floor((time/3600000)%60)).slice(-2)}h {' '}
+            {("0" + Math.floor((time/60000)%60)).slice(-2)}m {' '}
+            {("0" + Math.floor((time/1000)%60)).slice(-2)}s {' '}
+            {("0" + (time/10)%1000).slice(-2)}ms
+        </>
     )
 }
