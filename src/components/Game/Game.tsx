@@ -20,17 +20,6 @@ import { Code, CodeSlash } from 'react-bootstrap-icons';
 import { Battery, BatteryCharging, BatteryFull, BatteryHalf } from 'react-bootstrap-icons';
 import { useEffect, useState } from 'react';
 
-import PostAddIcon from '@mui/icons-material/PostAdd';
-import TimerIcon from '@mui/icons-material/Timer';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import ReorderIcon from '@mui/icons-material/Reorder';
-
-import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
-import GitHubIcon from '@mui/icons-material/GitHub';
-
 interface Detail {
     game: Game,
     developer: Developer,
