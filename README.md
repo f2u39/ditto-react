@@ -2,6 +2,13 @@
 
 Gonna learn React.
 
+## Status
+
+| Date | Status |
+| --- | --- |
+| Jul 29, 2022 | ⚪️ |
+| Jul 29, 2022 | 🟢 |
+
 ## References
 
 - [Getting started with React](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks/React_getting_started)
