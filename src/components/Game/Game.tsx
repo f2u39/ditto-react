@@ -20,6 +20,8 @@ import { Code, CodeSlash } from 'react-bootstrap-icons';
 import { Battery, BatteryCharging, BatteryFull, BatteryHalf } from 'react-bootstrap-icons';
 import { useEffect, useState } from 'react';
 
+
+
 interface Detail {
     game: Game,
     developer: Developer,
@@ -89,6 +91,7 @@ export default function Game() {
     }
 
     const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        setExpandedId(-1);
         setPage(value);
         console.log(page);
         // fetchDetails();

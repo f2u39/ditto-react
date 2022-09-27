@@ -5,7 +5,7 @@ export default function Home() {
     const [time, setTime] = useState(0)
 
     useEffect(() => {
-        const interval = window.setInterval(() => {
+        const interval = setInterval(() => {
             setTime(prevTime => prevTime + 10)
         }, 10)
         return () => clearInterval(interval)
