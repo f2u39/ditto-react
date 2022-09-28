@@ -25,7 +25,7 @@ export default function Nav() {
               aria-haspopup="true"
               color="inherit"
             >
-              <VideoGameAsset  sx={{ fontSize: 30, color: "slateblue" }} />
+              <VideoGameAsset sx={{ fontSize: 30, color: "slateblue" }} />
             </IconButton>
           </Link>
 
@@ -36,7 +36,7 @@ export default function Nav() {
               aria-haspopup="true"
               color="inherit"
             >
-              <Bookmarks  sx={{ fontSize: 30, color: "cadetblue" }} />
+              <Bookmarks sx={{ fontSize: 30, color: "cadetblue" }} />
             </IconButton>
           </Link>
 
@@ -47,7 +47,7 @@ export default function Nav() {
               aria-haspopup="true"
               color="inherit"
             >
-              <History  sx={{ fontSize: 30, color: "darkorange" }} />
+              <History sx={{ fontSize: 30, color: "darkorange" }} />
             </IconButton>
           </Link>
           
