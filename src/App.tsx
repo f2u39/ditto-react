@@ -5,10 +5,10 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Nav from './Components/Nav/Nav';
 import SignIn from './Components/SignIn/SignIn';
-import Home from './Components/Home/Home';
 import Act from './Components/Act/Act';
 import Word from './Components/Word/Word';
 import Game from './Components/Game/Game';
+import Stopwatch from './Components/Stopwatch/Stopwatch';
 import useToken from './useToken';
 
 import './App.css';
@@ -28,7 +28,6 @@ function App() {
   // }
 
   return (
-    
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <div className="App">
@@ -36,7 +35,7 @@ function App() {
 
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Home />} />
+            {/* <Route path="/" element={<Home />} /> */}
             <Route path="/act" element={<Act />} />
             <Route path="/word" element={<Word />} />
             <Route path="/game" element={<Game />} />
@@ -44,8 +43,6 @@ function App() {
         </BrowserRouter>
       </div>
     </ThemeProvider>
-
-
   );
 }
 

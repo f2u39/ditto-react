@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from "react";
+import dayjs, { Dayjs } from 'dayjs';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,16 +11,38 @@ import { AppBar, Box, Divider, Grid, IconButton, Link, Toolbar, Typography } fro
 
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import TimerIcon from '@mui/icons-material/Timer';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import DateRangeIcon from '@mui/icons-material/DateRange';
 
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ReorderIcon from '@mui/icons-material/Reorder';
 
+import TodayIcon from '@mui/icons-material/Today';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+
 export default function Act() {
+    const [date, setDate] = useState<Dayjs | null>(
+        dayjs(new Date()),
+    );
+    const [openCalendar, setOpenCalendar] = useState(false);
+    const handleCalendarOpen = () => { setOpenCalendar(true) };
+    const handleCalendarClose = () => { setOpenCalendar(false) };
+    const handleChangeDate = (newValue: Dayjs | null) => {
+        setDate(newValue);
+      };
+
     const [acts, setActs] = useState({
         daily_acts: [],
         day_sum: null,
@@ -56,14 +79,14 @@ export default function Act() {
     const DaySumTableRows =
         <>
             <TableRow>
-                <TableCell align="right" colSpan={2}>🎮</TableCell>
+                <TableCell align="right" colSpan={2}><SportsEsportsIcon sx={{ color: "cadetblue" }} /></TableCell>
                 {daySum.length === 0 ?
                     <TableCell></TableCell> :
                     <TableCell align="left">{daySum.game_hour}h {daySum.game_min}m</TableCell>
                 }
             </TableRow>
             <TableRow>
-                <TableCell align="right" colSpan={2}>💻</TableCell>
+                <TableCell align="right" colSpan={2}><GitHubIcon sx={{ color: "cadetblue" }} /></TableCell>
                 {daySum.length === 0 ?
                     <TableCell></TableCell> :
                     <TableCell align="left">{daySum.pgm_hour}h {daySum.pgm_min}m</TableCell>
@@ -95,14 +118,14 @@ export default function Act() {
     const MonthSumTableRows =
         <>
             <TableRow>
-                <TableCell align="right" colSpan={2}>🎮</TableCell>
+                <TableCell align="right" colSpan={2}><SportsEsportsIcon sx={{ color: "cadetblue" }} /></TableCell>
                 {monthSum.length === 0 ?
                     <TableCell></TableCell> :
                     <TableCell align="left">{monthSum.game_hour}h {monthSum.game_min}m</TableCell>
                 }
             </TableRow>
             <TableRow>
-                <TableCell align="right" colSpan={2}>💻</TableCell>
+                <TableCell align="right" colSpan={2}><GitHubIcon sx={{ color: "cadetblue" }} /></TableCell>
                 {monthSum.length === 0 ?
                     <TableCell></TableCell> :
                     <TableCell align="left">{monthSum.pgm_hour}h {monthSum.pgm_min}m</TableCell>
@@ -125,38 +148,50 @@ export default function Act() {
                         <Toolbar>
                             <Typography sx={{ flexGrow: 1 }} />
 
-                            <Link href="/game">
-                                <IconButton
-                                    size="large"
-                                    aria-controls="menu-appbar"
-                                    aria-haspopup="true"
-                                    color="inherit"
-                                >
-                                    <PostAddIcon sx={{ fontSize: 30, color: "#F8C8DC" }} />
-                                </IconButton>
-                            </Link>
+                            <IconButton
+                                size="large"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                color="inherit"
+                            >
+                                <PostAddIcon sx={{ fontSize: 30, color: "#F8C8DC" }} />
+                            </IconButton>
 
-                            <Link href="/word">
-                                <IconButton
-                                    size="large"
-                                    aria-controls="menu-appbar"
-                                    aria-haspopup="true"
-                                    color="inherit"
-                                >
-                                    <TimerIcon sx={{ fontSize: 30, color: "#F8C8DC" }} />
-                                </IconButton>
-                            </Link>
+                            <IconButton
+                                size="large"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                color="inherit"
+                            >
+                                <TimerIcon sx={{ fontSize: 30, color: "#F8C8DC" }} />
+                            </IconButton>
 
-                            <Link href="/act">
-                                <IconButton
-                                    size="large"
-                                    aria-controls="menu-appbar"
-                                    aria-haspopup="true"
-                                    color="inherit"
-                                >
-                                    <CalendarMonthIcon sx={{ fontSize: 30, color: "#F8C8DC" }} />
-                                </IconButton>
-                            </Link>
+                            <IconButton
+                                size="large"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                color="inherit"
+                                onClick={handleCalendarOpen}
+                            >
+                                <DateRangeIcon sx={{ fontSize: 30, color: "#F8C8DC" }} />
+                            </IconButton>
+                            <Dialog open={openCalendar} onClose={handleCalendarClose}>
+                                <DialogTitle>Select a date</DialogTitle>
+                                <DialogContent>
+                                    <DialogContentText></DialogContentText>
+                                    <DesktopDatePicker
+                                        label="Date desktop"
+                                        inputFormat="MM/DD/YYYY"
+                                        value={date}
+                                        onChange={handleChangeDate}
+                                        renderInput={(params) => <TextField {...params} />}
+                                    />
+                                </DialogContent>
+                                <DialogActions>
+                                    <Button onClick={handleCalendarClose}>Cancel</Button>
+                                    <Button onClick={handleCalendarClose}>Subscribe</Button>
+                                </DialogActions>
+                            </Dialog>
 
                             <Typography sx={{ flexGrow: 1 }} />
                         </Toolbar>
@@ -172,7 +207,12 @@ export default function Act() {
                             </TableRow> */}
 
                             <TableRow>
-                                <TableCell colSpan={3}>📆 Daily</TableCell>
+                                <TableCell colSpan={3}>
+                                    <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+                                        <TodayIcon />
+                                        <span>Daily</span>
+                                    </div>
+                                </TableCell>
                             </TableRow>
                         </TableHead>
 
@@ -183,7 +223,12 @@ export default function Act() {
 
                         <TableHead sx={{ borderRadius: 1, borderTop: 2 }}>
                             <TableRow>
-                                <TableCell colSpan={3}>📅 Monthly</TableCell>
+                                <TableCell colSpan={3}>
+                                    <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+                                        <CalendarMonthIcon />
+                                        <span>Monthly</span>
+                                    </div>
+                                </TableCell>
                             </TableRow>
                         </TableHead>
 
@@ -191,8 +236,6 @@ export default function Act() {
                             {MonthlyTableRows}
                             {MonthSumTableRows}
                         </TableBody>
-
-
                     </Table>
                 </TableContainer>
             </Grid>

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 
-export default function Home() {
+export default function Stopwatch() {
     const [time, setTime] = useState(0)
 
     useEffect(() => {

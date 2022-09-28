@@ -115,8 +115,8 @@ export default function Game() {
         <Box sx={{ width: '100%' }}>
             <TabContext value={status}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <TabList onChange={handleStatusChange} centered>
-                        <Tab icon={<BatteryFull fontSize="30" color="grey" />} value="Played" />
+                    <TabList indicatorColor="secondary" onChange={handleStatusChange} centered>
+                        <Tab icon={<BatteryFull fontSize="30" color="white" />} value="Played" />
                         <Tab icon={<BatteryCharging fontSize="30" color="green" />} value="Playing" />
                         <Tab icon={<Battery fontSize="30" color="red" />} value="Blocking" />
                     </TabList>
