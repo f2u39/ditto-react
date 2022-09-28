@@ -107,7 +107,7 @@ export default function Game() {
     }));
 
     const handleStatusChange = (event: React.SyntheticEvent, newStatus: string) => {
-        console.log(newStatus);
+        setPage(1);
         setStatus(newStatus);
     };
 

@@ -43,8 +43,13 @@ export default function Act() {
     const [openCalendar, setOpenCalendar] = useState(false);
     const handleCalendarOpen = () => { setOpenCalendar(true) };
     const handleCalendarClose = () => { setOpenCalendar(false) };
-    const handleChangeDate = (newValue: Dayjs | null) => {
+    const handleChangeTempDate = (newValue: Dayjs | null) => {
         setTempDate(newValue);
+    };
+
+    const handleUpdateDate = () => {
+        setDate(tempDate);
+        setOpenCalendar(false);
     };
 
     const [acts, setActs] = useState({
@@ -187,15 +192,15 @@ export default function Act() {
                                         <DesktopDatePicker
                                             // autoFocus
                                             inputFormat="MM/DD/YYYY"
-                                            value={date}
-                                            onChange={handleChangeDate}
+                                            value={tempDate}
+                                            onChange={handleChangeTempDate}
                                             renderInput={(params) => <TextField {...params} />}
                                         />
                                     </LocalizationProvider>
                                 </DialogContent>
                                 <DialogActions>
                                     <Button onClick={handleCalendarClose}>Cancel</Button>
-                                    <Button onClick={setDate({tempDate})}>Search</Button>
+                                    <Button onClick={handleUpdateDate}>Search</Button>
                                 </DialogActions>
                             </Dialog>
 
