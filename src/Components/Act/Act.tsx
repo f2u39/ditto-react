@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import dayjs, { Dayjs } from 'dayjs';
 import Table from '@mui/material/Table';
@@ -31,17 +30,22 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from "@mui/x-date-pickers";
 
 export default function Act() {
     const [date, setDate] = useState<Dayjs | null>(
+        dayjs(new Date()),
+    );
+    const [tempDate, setTempDate] = useState<Dayjs | null>(
         dayjs(new Date()),
     );
     const [openCalendar, setOpenCalendar] = useState(false);
     const handleCalendarOpen = () => { setOpenCalendar(true) };
     const handleCalendarClose = () => { setOpenCalendar(false) };
     const handleChangeDate = (newValue: Dayjs | null) => {
-        setDate(newValue);
-      };
+        setTempDate(newValue);
+    };
 
     const [acts, setActs] = useState({
         daily_acts: [],
@@ -178,18 +182,20 @@ export default function Act() {
                             <Dialog open={openCalendar} onClose={handleCalendarClose}>
                                 <DialogTitle>Select a date</DialogTitle>
                                 <DialogContent>
-                                    <DialogContentText></DialogContentText>
-                                    <DesktopDatePicker
-                                        label="Date desktop"
-                                        inputFormat="MM/DD/YYYY"
-                                        value={date}
-                                        onChange={handleChangeDate}
-                                        renderInput={(params) => <TextField {...params} />}
-                                    />
+                                    {/* <DialogContentText></DialogContentText> */}
+                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                        <DesktopDatePicker
+                                            // autoFocus
+                                            inputFormat="MM/DD/YYYY"
+                                            value={date}
+                                            onChange={handleChangeDate}
+                                            renderInput={(params) => <TextField {...params} />}
+                                        />
+                                    </LocalizationProvider>
                                 </DialogContent>
                                 <DialogActions>
                                     <Button onClick={handleCalendarClose}>Cancel</Button>
-                                    <Button onClick={handleCalendarClose}>Subscribe</Button>
+                                    <Button onClick={setDate({tempDate})}>Search</Button>
                                 </DialogActions>
                             </Dialog>
 
