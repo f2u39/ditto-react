@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
@@ -11,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TuneIcon from '@mui/icons-material/Tune';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-import { AppBar, Box, FormControl, Grid, InputAdornment, InputLabel, Link, makeStyles, OutlinedInput, Paper, TextField, Toolbar } from '@mui/material';
+import { Box, Grid, InputAdornment, TextField } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
@@ -23,7 +22,7 @@ import TabPanel from '@mui/lab/TabPanel';
 
 import { Tablet, PcDisplay, NintendoSwitch, Playstation, Xbox } from 'react-bootstrap-icons';
 import { Code, CodeSlash } from 'react-bootstrap-icons';
-import { Battery, BatteryCharging, BatteryFull, BatteryHalf } from 'react-bootstrap-icons';
+import { Battery, BatteryCharging, BatteryFull } from 'react-bootstrap-icons';
 import { useEffect, useState } from 'react';
 
 interface Detail {
