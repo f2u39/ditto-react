@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TuneIcon from '@mui/icons-material/Tune';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-import { Badge, Box, Grid, InputAdornment, TextField } from '@mui/material';
+import { Badge, Box, Divider, Grid, InputAdornment, Tabs, TextField } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
@@ -54,8 +54,6 @@ export default function Game() {
     const [blockingCount, setBlockingCount] = useState(0);
 
     useEffect(() => {
-        // fetchDetails();
-
         fetch(`/api/game/status/${status}/${page}`)
             .then(response => response.json())
             .then(data => {
@@ -81,10 +79,6 @@ export default function Game() {
         setPage(value);
         // fetchDetails();
     };
-
-    const CenterStack = styled(Stack)(() => ({
-        textAlign: 'center',
-    }));
 
     const handleStatusChange = (event: React.SyntheticEvent, newStatus: string) => {
         setPage(1);
@@ -124,7 +118,6 @@ export default function Game() {
                         />
                     </TabList>
                 </Box>
-
 
                 <TabPanel value={status}>
                     <Grid
@@ -329,10 +322,4 @@ interface Developer {
 interface Publisher {
     id: string,
     name: string,
-}
-
-interface Count {
-    played_cnt: 0,
-    playing_cnt: 0,
-    blocking_cnt: 0,
 }

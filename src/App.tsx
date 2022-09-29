@@ -8,6 +8,7 @@ import SignIn from './Components/SignIn/SignIn';
 import Act from './Components/Act/Act';
 import Word from './Components/Word/Word';
 import Game from './Components/Game/Game';
+import Game2 from './Components/Game/Game2';
 import Stopwatch from './Components/Stopwatch/Stopwatch';
 import useToken from './useToken';
 
@@ -22,7 +23,6 @@ const darkTheme = createTheme({
 function App() {
   // const { token, setToken } = useToken();
 
-  // console.log(token);
   // if (!token) {
   //   return <SignIn setToken={setToken} />
   // }
@@ -38,7 +38,7 @@ function App() {
             {/* <Route path="/" element={<Home />} /> */}
             <Route path="/act" element={<Act />} />
             <Route path="/word" element={<Word />} />
-            <Route path="/game" element={<Game />} />
+            <Route path="/game" element={<Game2 />} />
           </Routes>
         </BrowserRouter>
       </div>
