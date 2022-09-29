@@ -56,15 +56,21 @@ export default function Game() {
         fetch(`/api/game/status/${status}/${platform}/${page}`)
             .then(response => response.json())
             .then(data => {
-                setDetails(data["details"])
+                console.log(data["details"])
+                if (data["details"] != null) {
+                    setDetails(data["details"])
+                } else {
+                    setDetails([])
+                }
+                
                 setTotalPages(data["total_pages"])
             })
 
         fetch(`/api/game/counts`)
             .then(resp => resp.json())
             .then(data => {
-                setPlayedCount(data["playing_cnt"])
-                setPlayingCount(data["played_cnt"])
+                setPlayedCount(data["played_cnt"])
+                setPlayingCount(data["playing_cnt"])
                 setBlockingCount(data["blocking_cnt"])
             })
     }, [status, platform, page]);
@@ -85,6 +91,7 @@ export default function Game() {
     };
 
     const handlePlatformChange = (event: React.SyntheticEvent, newValue: string) => {
+        console.log(newValue)
         setPlatform(newValue);
     };
 
@@ -136,167 +143,173 @@ export default function Game() {
                             <Tab icon={<Boxes color="purple" size={30} />} value="All" />
                             <Tab icon={<PcDisplay color="orange" size={30} />} value="PC" />
                             <Tab icon={<Playstation color="skyblue" size={30} />} value="PlayStation" />
-                            <Tab icon={<NintendoSwitch color="red" size={30} />} value="NintendoSwitch" />
+                            <Tab icon={<NintendoSwitch color="red" size={30} />} value="Nintendo Switch" />
                             <Tab icon={<Xbox color="green" size={30} />} value="Xbox" />
                             <Tab icon={<Tablet color="white" size={30} />} value="Mobile" />
                         </Tabs>
 
-                        <TabPanel value={platform}>
-                            <Grid
-                                container
-                                spacing={2}
-                                justifyContent="center"
-                                sx={{ flexGrow: 1 }}
-                                xs={12}
-                            >
-                                {details.map((element, i) => (
-                                    <Grid item>
-                                        <Card sx={{ maxWidth: 300 }} key={element.game.id}>
-                                            <CardMedia
-                                                component="img"
-                                                height="300"
-                                                image={"static/images/games/" + element.game.id + ".webp"}
-                                            // /assets/img/games/xxx.webp
-                                            />
-                                            <CardContent>
-                                                <Typography variant="body2" color="text.secondary">
-                                                    {element.game.title}
-                                                </Typography>
-                                            </CardContent>
-                                            <CardActions disableSpacing>
-                                                <IconButton>
-                                                    <TuneIcon />
-                                                </IconButton>
 
-                                                <IconButton>
-                                                    <PlayCircleOutlineIcon />
-                                                </IconButton>
-                                                <ExpandMore
-                                                    expand={expanded}
-                                                    onClick={() => handleExpandClick(i)}
-                                                    aria-expanded={expandedId === i}
-                                                    aria-label="show more"
-                                                >
-                                                    <ExpandMoreIcon />
-                                                </ExpandMore>
-                                            </CardActions>
-                                            <Collapse in={expandedId === i} timeout="auto" unmountOnExit>
-                                                <CardContent>
-                                                    <Box sx={{
-                                                        mx: "auto",
-                                                        display: 'flex',
-                                                        flexDirection: 'column',
-                                                        alignItems: 'center',
-                                                        '& > *': {
-                                                            m: 1,
-                                                        },
-                                                    }}
-                                                    >
-                                                        <TextField
-                                                            disabled
-                                                            inputProps={{
-                                                                style: { padding: '7px 5px', textAlign: 'right' },
-                                                            }}
-                                                            InputProps={{
-                                                                startAdornment: (
-                                                                    <InputAdornment position="start">
-                                                                        {element.game.platform === 'Mobile' ? <Tablet /> : <></>}
-                                                                        {element.game.platform === 'PC' ? <PcDisplay /> : <></>}
-                                                                        {element.game.platform === 'Playstation' ? <Playstation /> : <></>}
-                                                                        {element.game.platform === 'Nintendo Switch' ? <NintendoSwitch /> : <></>}
-                                                                        {element.game.platform === 'Xbox' ? <Xbox /> : <></>}
-                                                                    </InputAdornment>
-                                                                ),
-                                                                endAdornment: (
-                                                                    <InputAdornment position="end">
-                                                                        {element.game.rating}
-                                                                    </InputAdornment>
-                                                                )
-                                                            }}
-                                                        />
-
-                                                        <TextField
-                                                            disabled
-                                                            sx={{ pt: 1 }}
-                                                            inputProps={{
-                                                                style: { padding: '7px 5px', textAlign: 'right' },
-                                                            }}
-                                                            InputProps={{
-                                                                startAdornment: (
-                                                                    <InputAdornment position="start">
-                                                                        <Code />
-                                                                    </InputAdornment>
-                                                                ),
-                                                                endAdornment: (
-                                                                    <InputAdornment position="end">
-                                                                        {element.developer.name}
-                                                                    </InputAdornment>
-                                                                )
-                                                            }}
-                                                        />
-
-                                                        <TextField
-                                                            disabled
-                                                            sx={{ pt: 1 }}
-                                                            inputProps={{
-                                                                style: { padding: '7px 5px', textAlign: 'right' },
-                                                            }}
-                                                            InputProps={{
-                                                                startAdornment: (
-                                                                    <InputAdornment position="start">
-                                                                        <CodeSlash />
-                                                                    </InputAdornment>
-                                                                ),
-                                                                endAdornment: (
-                                                                    <InputAdornment position="end">
-                                                                        {element.publisher.name}
-                                                                    </InputAdornment>
-                                                                )
-                                                            }}
-                                                        />
-
-                                                        <TextField
-                                                            disabled
-                                                            sx={{ pt: 1 }}
-                                                            inputProps={{
-                                                                style: { padding: '7px 5px', textAlign: 'right' },
-                                                            }}
-                                                            InputProps={{
-                                                                startAdornment: (
-                                                                    <InputAdornment position="start">
-                                                                        <BatteryCharging />
-                                                                    </InputAdornment>
-                                                                ),
-                                                                endAdornment: (
-                                                                    <InputAdornment position="end">
-                                                                        {element.play_hour}h
-                                                                    </InputAdornment>
-                                                                )
-                                                            }}
-                                                        />
-                                                    </Box>
-                                                </CardContent>
-                                            </Collapse>
-                                        </Card>
-                                    </Grid>
-                                ))
-                                }
-                            </Grid>
-                            <Grid xs={12} sx={{ pt: 3, pb: 3 }}>
-                                <Box
-                                    display="flex"
+                        <div
+                            role="tabpanel"
+                        >
+                            <Box sx={{ p: 3 }}>
+                                <Grid
+                                    container
+                                    spacing={2}
                                     justifyContent="center"
-                                    alignItems="center"
+                                    sx={{ flexGrow: 1 }}
+                                    xs={12}
                                 >
-                                    <Pagination
-                                        count={totalPages}
-                                        page={page}
-                                        onChange={handlePageChange}
-                                        variant="outlined"
-                                        color="secondary" />
-                                </Box>
-                            </Grid>
-                        </TabPanel>
+                                    {details.map((element, i) => (
+                                        <Grid item>
+                                            <Card sx={{ maxWidth: 300 }} key={element.game.id}>
+                                                <CardMedia
+                                                    component="img"
+                                                    height="300"
+                                                    image={"static/images/games/" + element.game.id + ".webp"}
+                                                // /assets/img/games/xxx.webp
+                                                />
+                                                <CardContent>
+                                                    <Typography variant="body2" color="text.secondary">
+                                                        {element.game.title}
+                                                    </Typography>
+                                                </CardContent>
+                                                <CardActions disableSpacing>
+                                                    <IconButton>
+                                                        <TuneIcon />
+                                                    </IconButton>
+
+                                                    <IconButton>
+                                                        <PlayCircleOutlineIcon />
+                                                    </IconButton>
+                                                    <ExpandMore
+                                                        expand={expanded}
+                                                        onClick={() => handleExpandClick(i)}
+                                                        aria-expanded={expandedId === i}
+                                                        aria-label="show more"
+                                                    >
+                                                        <ExpandMoreIcon />
+                                                    </ExpandMore>
+                                                </CardActions>
+                                                <Collapse in={expandedId === i} timeout="auto" unmountOnExit>
+                                                    <CardContent>
+                                                        <Box sx={{
+                                                            mx: "auto",
+                                                            display: 'flex',
+                                                            flexDirection: 'column',
+                                                            alignItems: 'center',
+                                                            '& > *': {
+                                                                m: 1,
+                                                            },
+                                                        }}
+                                                        >
+                                                            <TextField
+                                                                disabled
+                                                                inputProps={{
+                                                                    style: { padding: '7px 5px', textAlign: 'right' },
+                                                                }}
+                                                                InputProps={{
+                                                                    startAdornment: (
+                                                                        <InputAdornment position="start">
+                                                                            {element.game.platform === 'Mobile' ? <Tablet /> : <></>}
+                                                                            {element.game.platform === 'PC' ? <PcDisplay /> : <></>}
+                                                                            {element.game.platform === 'Playstation' ? <Playstation /> : <></>}
+                                                                            {element.game.platform === 'Nintendo Switch' ? <NintendoSwitch /> : <></>}
+                                                                            {element.game.platform === 'Xbox' ? <Xbox /> : <></>}
+                                                                        </InputAdornment>
+                                                                    ),
+                                                                    endAdornment: (
+                                                                        <InputAdornment position="end">
+                                                                            {element.game.rating}
+                                                                        </InputAdornment>
+                                                                    )
+                                                                }}
+                                                            />
+
+                                                            <TextField
+                                                                disabled
+                                                                sx={{ pt: 1 }}
+                                                                inputProps={{
+                                                                    style: { padding: '7px 5px', textAlign: 'right' },
+                                                                }}
+                                                                InputProps={{
+                                                                    startAdornment: (
+                                                                        <InputAdornment position="start">
+                                                                            <Code />
+                                                                        </InputAdornment>
+                                                                    ),
+                                                                    endAdornment: (
+                                                                        <InputAdornment position="end">
+                                                                            {element.developer.name}
+                                                                        </InputAdornment>
+                                                                    )
+                                                                }}
+                                                            />
+
+                                                            <TextField
+                                                                disabled
+                                                                sx={{ pt: 1 }}
+                                                                inputProps={{
+                                                                    style: { padding: '7px 5px', textAlign: 'right' },
+                                                                }}
+                                                                InputProps={{
+                                                                    startAdornment: (
+                                                                        <InputAdornment position="start">
+                                                                            <CodeSlash />
+                                                                        </InputAdornment>
+                                                                    ),
+                                                                    endAdornment: (
+                                                                        <InputAdornment position="end">
+                                                                            {element.publisher.name}
+                                                                        </InputAdornment>
+                                                                    )
+                                                                }}
+                                                            />
+
+                                                            <TextField
+                                                                disabled
+                                                                sx={{ pt: 1 }}
+                                                                inputProps={{
+                                                                    style: { padding: '7px 5px', textAlign: 'right' },
+                                                                }}
+                                                                InputProps={{
+                                                                    startAdornment: (
+                                                                        <InputAdornment position="start">
+                                                                            <BatteryCharging />
+                                                                        </InputAdornment>
+                                                                    ),
+                                                                    endAdornment: (
+                                                                        <InputAdornment position="end">
+                                                                            {element.play_hour}h
+                                                                        </InputAdornment>
+                                                                    )
+                                                                }}
+                                                            />
+                                                        </Box>
+                                                    </CardContent>
+                                                </Collapse>
+                                            </Card>
+                                        </Grid>
+                                    ))
+                                    }
+                                </Grid>
+                                <Grid xs={12} sx={{ pt: 3, pb: 3 }}>
+                                    <Box
+                                        display="flex"
+                                        justifyContent="center"
+                                        alignItems="center"
+                                    >
+                                        <Pagination
+                                            count={totalPages}
+                                            page={page}
+                                            onChange={handlePageChange}
+                                            variant="outlined"
+                                            color="secondary" />
+                                    </Box>
+                                </Grid>
+                            </Box>
+                        </div>
+
                     </Box>
                 </TabPanel>
             </TabContext>
@@ -321,6 +334,18 @@ function a11yProps(index: number) {
         id: `vertical-tab-${index}`,
         'aria-controls': `vertical-tabpanel-${index}`,
     };
+}
+
+function GameTabPanel() {
+    return (
+        <div
+            role="tabpanel"
+        >
+            <Box sx={{ p: 3 }}>
+
+            </Box>
+        </div>
+    );
 }
 
 interface Detail {
