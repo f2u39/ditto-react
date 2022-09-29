@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TuneIcon from '@mui/icons-material/Tune';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-import { Box, Grid, InputAdornment, TextField } from '@mui/material';
+import { Badge, Box, Grid, InputAdornment, TextField } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
@@ -24,36 +24,6 @@ import { Tablet, PcDisplay, NintendoSwitch, Playstation, Xbox } from 'react-boot
 import { Code, CodeSlash } from 'react-bootstrap-icons';
 import { Battery, BatteryCharging, BatteryFull } from 'react-bootstrap-icons';
 import { useEffect, useState } from 'react';
-
-interface Detail {
-    game: Game,
-    developer: Developer,
-    publisher: Publisher,
-    play_hour: 0,
-    play_min: 0,
-}
-
-interface Game {
-    id: string,
-    title: string,
-    genre: string,
-    platform: string,
-    developer_id: string,
-    publisher_id: string,
-    status: string,
-    playtime: string,
-    rating: string,
-}
-
-interface Developer {
-    id: string,
-    name: string,
-}
-
-interface Publisher {
-    id: string,
-    name: string,
-}
 
 interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
@@ -79,6 +49,10 @@ export default function Game() {
     const [expandedId, setExpandedId] = useState(-1)
     const [status, setStatus] = useState("Playing")
 
+    const [playedCount, setPlayedCount] = useState(0);
+    const [playingCount, setPlayingCount] = useState(0);
+    const [blockingCount, setBlockingCount] = useState(0);
+
     useEffect(() => {
         // fetchDetails();
 
@@ -87,6 +61,14 @@ export default function Game() {
             .then(data => {
                 setDetails(data["details"])
                 setTotalPages(data["total_pages"])
+            })
+
+        fetch(`/api/game/counts`)
+            .then(resp => resp.json())
+            .then(data => {
+                setPlayedCount(data["playing_cnt"])
+                setPlayingCount(data["played_cnt"])
+                setBlockingCount(data["blocking_cnt"])
             })
     }, [page, status]);
 
@@ -97,7 +79,6 @@ export default function Game() {
     const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
         setExpandedId(-1);
         setPage(value);
-        console.log(page);
         // fetchDetails();
     };
 
@@ -115,9 +96,32 @@ export default function Game() {
             <TabContext value={status}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <TabList indicatorColor="secondary" onChange={handleStatusChange} centered>
-                        <Tab icon={<BatteryFull fontSize="30" color="white" />} value="Played" />
-                        <Tab icon={<BatteryCharging fontSize="30" color="green" />} value="Playing" />
-                        <Tab icon={<Battery fontSize="30" color="red" />} value="Blocking" />
+                        <Tab
+                            icon={
+                                <Badge badgeContent={playedCount} color="primary">
+                                    <BatteryFull fontSize="30" color="white" />
+                                </Badge>
+                            }
+                            value="Played"
+                        />
+
+                        <Tab
+                            icon={
+                                <Badge badgeContent={playingCount} color="success">
+                                    <BatteryCharging fontSize="30" color="green" />
+                                </Badge>
+                            }
+                            value="Playing"
+                        />
+
+                        <Tab 
+                            icon={
+                                <Badge badgeContent={blockingCount} color="error">
+                                    <Battery fontSize="30" color="red" />
+                                </Badge>
+                            }
+                            value="Blocking" 
+                        />
                     </TabList>
                 </Box>
 
@@ -141,7 +145,7 @@ export default function Game() {
                                     />
                                     <CardContent>
                                         <Typography variant="body2" color="text.secondary">
-                                            <h4>{element.game.title}</h4>
+                                            {element.game.title}
                                         </Typography>
                                     </CardContent>
                                     <CardActions disableSpacing>
@@ -297,41 +301,38 @@ export default function Game() {
     }
 }
 
-{/* <Grid sx={{ flexGrow: 1 }} xs={12}>
-    <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none' }}>
-        <Toolbar>
-            <Typography sx={{ flexGrow: 1 }} />
-            <IconButton
-                size="large"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                color="inherit"
-                onClick={() => setStatus("Played")}
-            >
-                <BatteryFull color="grey" />
-            </IconButton>
+interface Detail {
+    game: Game,
+    developer: Developer,
+    publisher: Publisher,
+    play_hour: 0,
+    play_min: 0,
+}
 
-            <IconButton
-                size="large"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                color="inherit"
-                onClick={() => setStatus("Playing")}
-            >
-                <BatteryCharging color="green" />
-            </IconButton>
+interface Game {
+    id: string,
+    title: string,
+    genre: string,
+    platform: string,
+    developer_id: string,
+    publisher_id: string,
+    status: string,
+    playtime: string,
+    rating: string,
+}
 
-            <IconButton
-                size="large"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                color="inherit"
-                onClick={() => setStatus("Blocking")}
-            >
-                <Battery color="red" />
-            </IconButton>
+interface Developer {
+    id: string,
+    name: string,
+}
 
-            <Typography sx={{ flexGrow: 1 }} />
-        </Toolbar>
-    </AppBar>
-</Grid> */}
+interface Publisher {
+    id: string,
+    name: string,
+}
+
+interface Count {
+    played_cnt: 0,
+    playing_cnt: 0,
+    blocking_cnt: 0,
+}
