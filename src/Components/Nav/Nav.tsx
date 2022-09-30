@@ -11,8 +11,11 @@ import VideoGameAsset from '@mui/icons-material/VideogameAsset';
 
 export default function Nav() {
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none' }}>
+      <AppBar
+        position="fixed"
+        style={{ background: 'transparent', boxShadow: 'none' }}
+        // sx={{ borderBottom: 1, borderColor: 'divider' }}
+      >
         <Toolbar>
           {/* <Themes /> */}
 
@@ -54,6 +57,6 @@ export default function Nav() {
           {/* <Button color="inherit"><VideoGameAsset style={{ color: "slateblue" }} /></Button> */}
         </Toolbar>
       </AppBar>
-    </Box>
+
   );
 }

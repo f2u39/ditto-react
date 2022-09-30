@@ -12,6 +12,7 @@ import Stopwatch from './Components/Stopwatch/Stopwatch';
 import useToken from './useToken';
 
 import './App.css';
+import { Box, Grid } from '@mui/material';
 
 const darkTheme = createTheme({
   palette: {
@@ -30,7 +31,9 @@ function App() {
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <div className="App">
-        <Nav />
+        <Grid xs={12} sx={{ height: 80 }}>
+          <Nav />
+        </Grid>
 
         <BrowserRouter>
           <Routes>
