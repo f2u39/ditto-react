@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TuneIcon from '@mui/icons-material/Tune';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-import { Badge, Box, Divider, Grid, InputAdornment, Tabs, TextField } from '@mui/material';
+import { Badge, Box, Grid, InputAdornment, Tabs, TextField } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 
 import Tab from '@mui/material/Tab';
@@ -18,7 +18,7 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 
-import { Motherboard, Tablet, PcDisplay, NintendoSwitch, Playstation, Xbox } from 'react-bootstrap-icons';
+import { Boxes, Tablet, PcDisplay, NintendoSwitch, Playstation, Xbox } from 'react-bootstrap-icons';
 import { Code, CodeSlash } from 'react-bootstrap-icons';
 import { Battery, BatteryCharging, BatteryFull } from 'react-bootstrap-icons';
 import { useEffect, useState } from 'react';
@@ -39,18 +39,18 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }));
 
 export default function Game() {
-    const [details, setDetails] = useState<Detail[]>([])
-    const [platform, setPlatform] = useState('All')
-    const [page, setPage] = useState(1)
-    const [totalPages, setTotalPages] = useState(1)
+    const [details, setDetails] = useState<Detail[]>([]);
+    const [platform, setPlatform] = useState('PC');
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
 
-    const [expanded, setExpanded] = useState(false)
+    const [expanded, setExpanded] = useState(false);
     const [expandedId, setExpandedId] = useState(-1)
     const [status, setStatus] = useState("Playing")
 
-    const [playedCount, setPlayedCount] = useState(0)
-    const [playingCount, setPlayingCount] = useState(0)
-    const [blockingCount, setBlockingCount] = useState(0)
+    const [playedCount, setPlayedCount] = useState(0);
+    const [playingCount, setPlayingCount] = useState(0);
+    const [blockingCount, setBlockingCount] = useState(0);
 
     useEffect(() => {
         fetch(`/api/game/status/${status}/${platform}/${page}`)
@@ -131,9 +131,7 @@ export default function Game() {
 
                 <TabPanel value={status}>
                     <Box
-                        // position="fixed"
-                        sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', width: 900 }}
-                        // sx={{ borderBottom: 1, borderColor: 'divider', display: 'flex', width: 900  }}
+                        sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'static', height: 500 }}
                     >
                         <Tabs
                             orientation="vertical"
@@ -142,18 +140,19 @@ export default function Game() {
                             onChange={handlePlatformChange}
                             sx={{ borderRight: 1, borderColor: 'divider' }}
                         >
-                            <Tab icon={<Motherboard color="purple" size={30} />} value="All" />
+                            <Tab icon={<Boxes color="purple" size={30} />} value="All" />
                             <Tab icon={<PcDisplay color="orange" size={30} />} value="PC" />
                             <Tab icon={<Playstation color="skyblue" size={30} />} value="PlayStation" />
-                            <Tab icon={<NintendoSwitch color="#822323" size={30} />} value="Nintendo Switch" />
+                            <Tab icon={<NintendoSwitch color="red" size={30} />} value="Nintendo Switch" />
                             <Tab icon={<Xbox color="green" size={30} />} value="Xbox" />
                             <Tab icon={<Tablet color="white" size={30} />} value="Mobile" />
                         </Tabs>
 
+
                         <div
                             role="tabpanel"
                         >
-                            <Box sx={{ p: 3 }}>
+                            <Box sx={{ pl: 20 }}>
                                 <Grid
                                     container
                                     spacing={2}
@@ -214,7 +213,7 @@ export default function Game() {
                                                                         <InputAdornment position="start">
                                                                             {element.game.platform === 'Mobile' ? <Tablet /> : <></>}
                                                                             {element.game.platform === 'PC' ? <PcDisplay /> : <></>}
-                                                                            {element.game.platform === 'PlayStation' ? <Playstation /> : <></>}
+                                                                            {element.game.platform === 'Playstation' ? <Playstation /> : <></>}
                                                                             {element.game.platform === 'Nintendo Switch' ? <NintendoSwitch /> : <></>}
                                                                             {element.game.platform === 'Xbox' ? <Xbox /> : <></>}
                                                                         </InputAdornment>
