@@ -130,9 +130,12 @@ export default function Game() {
                 </Box>
 
                 <TabPanel value={status}>
-                    <Box
-                        sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'static', height: 500 }}
+                    <Grid
+                        // justify="space-between"
+                        container 
+                        spacing={24}
                     >
+                        <Grid item>
                         <Tabs
                             orientation="vertical"
                             variant="scrollable"
@@ -147,12 +150,11 @@ export default function Game() {
                             <Tab icon={<Xbox color="green" size={30} />} value="Xbox" />
                             <Tab icon={<Tablet color="white" size={30} />} value="Mobile" />
                         </Tabs>
+                        </Grid>
+                        
 
 
-                        <div
-                            role="tabpanel"
-                        >
-                            <Box sx={{ pl: 20 }}>
+
                                 <Grid
                                     container
                                     spacing={2}
@@ -307,10 +309,8 @@ export default function Game() {
                                             color="secondary" />
                                     </Box>
                                 </Grid>
-                            </Box>
-                        </div>
 
-                    </Box>
+                    </Grid>
                 </TabPanel>
             </TabContext>
         </Box>
