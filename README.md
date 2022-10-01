@@ -1,6 +1,6 @@
 # Ditto-React
 
-Gonna learn React.
+Gonna learn React and TypeScript.
 
 ## Status
 
