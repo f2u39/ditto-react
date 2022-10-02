@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TuneIcon from '@mui/icons-material/Tune';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-import { Badge, Box, Grid, InputAdornment, Tabs, TextField } from '@mui/material';
+import { Badge, Box, Grid, InputAdornment, makeStyles, Tabs, TextField } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 
 import Tab from '@mui/material/Tab';
@@ -18,7 +18,7 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 
-import { Boxes, Tablet, PcDisplay, NintendoSwitch, Playstation, Xbox } from 'react-bootstrap-icons';
+import { Check2Square, Tablet, PcDisplay, NintendoSwitch, Playstation, Xbox } from 'react-bootstrap-icons';
 import { Code, CodeSlash } from 'react-bootstrap-icons';
 import { Battery, BatteryCharging, BatteryFull } from 'react-bootstrap-icons';
 import { useEffect, useState } from 'react';
@@ -134,33 +134,40 @@ export default function Game() {
                         container
                         direction="row"
                         justifyContent="space-between"
-                        alignItems="center"
-                        sx={{ display: 'inline-flex' }}
+                        // alignItems="center"
+                        sx={{
+                            display: 'inline-flex',
+                        }}
                     >
-                        <Grid item>
+                        <Grid
+                            item
+                            sx={{borderRight: 1, borderColor: 'divider' }}
+                        >
                             <Tabs
+                                variant="fullWidth"
                                 orientation="vertical"
-                                variant="scrollable"
                                 value={platform}
                                 onChange={handlePlatformChange}
-                                sx={{ borderRight: 1, borderColor: 'divider' }}
                             >
-                                <Tab icon={<Boxes color="purple" size={30} />} value="All" />
+                                <Tab icon={<Check2Square color="white" size={30} />} value="All" />
                                 <Tab icon={<PcDisplay color="orange" size={30} />} value="PC" />
                                 <Tab icon={<Playstation color="skyblue" size={30} />} value="PlayStation" />
                                 <Tab icon={<NintendoSwitch color="red" size={30} />} value="Nintendo Switch" />
                                 <Tab icon={<Xbox color="green" size={30} />} value="Xbox" />
-                                <Tab icon={<Tablet color="white" size={30} />} value="Mobile" />
+                                <Tab icon={<Tablet color="purple" size={30} />} value="Mobile" />
                             </Tabs>
                         </Grid>
-                        <Grid item>
+                        <Grid item xs={10}>
                             <Grid
                                 container
                             // justifyContent="center"
                             // sx={{ flexGrow: 1 }}
                             >
                                 {details.map((element, i) => (
-                                    <Card sx={{ maxWidth: 300 }} key={element.game.id}>
+                                    <Card
+                                        sx={{ ml: 3, mt: 3, maxWidth: 300 }}
+                                        key={element.game.id}
+                                    >
                                         <CardMedia
                                             component="img"
                                             height="300"
@@ -304,7 +311,6 @@ export default function Game() {
                                     color="secondary" />
                             </Box>
                         </Grid>
-
                     </Grid>
                 </TabPanel>
             </TabContext>
