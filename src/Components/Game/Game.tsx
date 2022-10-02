@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TuneIcon from '@mui/icons-material/Tune';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-import { Badge, Box, Grid, InputAdornment, makeStyles, Tabs, TextField } from '@mui/material';
+import { Badge, Box, Grid, InputAdornment, Tabs, TextField } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 
 import Tab from '@mui/material/Tab';
@@ -18,7 +18,7 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 
-import { Check2Square, Tablet, PcDisplay, NintendoSwitch, Playstation, Xbox } from 'react-bootstrap-icons';
+import { Check2Square, Tablet, PcDisplay, NintendoSwitch, Playstation, Xbox, BatteryHalf } from 'react-bootstrap-icons';
 import { Code, CodeSlash } from 'react-bootstrap-icons';
 import { Battery, BatteryCharging, BatteryFull } from 'react-bootstrap-icons';
 import { useEffect, useState } from 'react';
@@ -43,11 +43,8 @@ export default function Game() {
     const [platform, setPlatform] = useState('PC');
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-
-    const [expanded, setExpanded] = useState(false);
     const [expandedId, setExpandedId] = useState(-1)
     const [status, setStatus] = useState("Playing")
-
     const [playedCount, setPlayedCount] = useState(0);
     const [playingCount, setPlayingCount] = useState(0);
     const [blockingCount, setBlockingCount] = useState(0);
@@ -82,16 +79,17 @@ export default function Game() {
     const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
         setExpandedId(-1);
         setPage(value);
-        // fetchDetails();
     };
 
     const handleStatusChange = (event: React.SyntheticEvent, newStatus: string) => {
+        setExpandedId(-1);
         setPage(1);
         setStatus(newStatus);
     };
 
     const handlePlatformChange = (event: React.SyntheticEvent, newValue: string) => {
-        console.log(newValue)
+        setExpandedId(-1);
+        setPage(1);
         setPlatform(newValue);
     };
 
@@ -134,7 +132,6 @@ export default function Game() {
                         container
                         direction="row"
                         justifyContent="space-between"
-                        // alignItems="center"
                         sx={{
                             display: 'inline-flex',
                         }}
@@ -172,7 +169,6 @@ export default function Game() {
                                             component="img"
                                             height="300"
                                             image={"static/images/games/" + element.game.id + ".webp"}
-                                        // /assets/img/games/xxx.webp
                                         />
                                         <CardContent>
                                             <Typography variant="body2" color="text.secondary">
@@ -188,10 +184,8 @@ export default function Game() {
                                                 <PlayCircleOutlineIcon />
                                             </IconButton>
                                             <ExpandMore
-                                                expand={expanded}
+                                                expand={expandedId === i}
                                                 onClick={() => handleExpandClick(i)}
-                                                aria-expanded={expandedId === i}
-                                                aria-label="show more"
                                             >
                                                 <ExpandMoreIcon />
                                             </ExpandMore>
@@ -279,7 +273,9 @@ export default function Game() {
                                                         InputProps={{
                                                             startAdornment: (
                                                                 <InputAdornment position="start">
-                                                                    <BatteryCharging />
+                                                                    {element.game.status === 'Played' ? <BatteryFull /> : <></>}
+                                                                    {element.game.status === 'Playing' ? <BatteryCharging /> : <></>}
+                                                                    {element.game.status === 'Blocking' ? <Battery /> : <></>}
                                                                 </InputAdornment>
                                                             ),
                                                             endAdornment: (
