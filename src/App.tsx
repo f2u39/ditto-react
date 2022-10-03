@@ -1,7 +1,7 @@
 import React from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import Nav from './Components/Nav/Nav';
 import SignIn from './Components/SignIn/SignIn';
@@ -14,13 +14,9 @@ import useToken from './useToken';
 import './App.css';
 import { Box, Grid } from '@mui/material';
 
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
 
-function App() {
+
+export default function App() {
   // const { token, setToken } = useToken();
 
   // if (!token) {
@@ -28,24 +24,22 @@ function App() {
   // }
 
   return (
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <div className="App">
-        <Grid xs={12} sx={{ height: 80 }}>
-          <Nav />
-        </Grid>
+    // <ThemeProvider theme={darkTheme}>
+    //   <CssBaseline />
+    //   <div className="App">
+    //     <Grid xs={12} sx={{ height: 80 }}>
+    //       <Nav />
+    //     </Grid>
 
-        <BrowserRouter>
+    //     <BrowserRouter>
           <Routes>
             {/* <Route path="/" element={<Home />} /> */}
             <Route path="/act" element={<Act />} />
             <Route path="/word" element={<Word />} />
             <Route path="/game" element={<Game />} />
           </Routes>
-        </BrowserRouter>
-      </div>
-    </ThemeProvider>
+    //     </BrowserRouter>
+    //   </div>
+    // </ThemeProvider>
   );
 }
-
-export default App;
