@@ -1,6 +1,7 @@
 # Ditto-React
 
 Gonna learn React and TypeScript.
+<br/>
 Migrate to [ditto-go-react](https://github.com/f2u39/ditto-go-react).
 
 ## Status
