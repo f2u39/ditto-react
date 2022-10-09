@@ -1,16 +1,11 @@
 # Ditto-React
 
-Gonna learn React and TypeScript.
-<br/>
-Migrate to [ditto-go-react](https://github.com/f2u39/ditto-go-react).
+| Date | Status | Desc |
+| --- | --- | --- |
+| Jul 29, 2022 | ⚪️ | Gonna learn React and TypeScript |
+| Jul 29, 2022 | 🟢 | In progress |
+| Oct 05, 2022 | 🔴 | Migrate to [ditto-go-react](https://github.com/f2u39/ditto-go-react) |
 
-## Status
-
-| Date | Status |
-| --- | --- |
-| Jul 29, 2022 | ⚪️ |
-| Jul 29, 2022 | 🟢 |
-| Oct 05, 2022 | 🔴 |
 
 ## Memo
 
